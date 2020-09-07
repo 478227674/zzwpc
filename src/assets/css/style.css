@@ -1,0 +1,130 @@
+.pc-list-change span{
+  margin-left: 15px;
+  cursor: pointer;
+}
+.sx-type > span{
+  cursor: pointer;
+  margin-right: 60px;
+  font-size: 16px;
+}
+.pc-list-list-top{
+  border-bottom: 1px solid #e5e5e5;
+  padding-bottom: 20px;
+  font-size: 16px;
+  color:#666666;
+  display: flex;
+  justify-content: space-between;
+}
+.active-level{
+  color:#f73e3c;
+}
+.level-3-item ul {
+  display: flex;
+  justify-content:flex-start;
+  width: 730px;
+  flex-wrap: wrap;
+}
+.level-3-item li{
+  cursor: pointer;
+  margin-bottom: 10px;
+  margin-right: 30px;
+}
+.level-3-all{
+  width:60px;
+  text-align: left;
+}
+.level-3-list>span{
+  display: block;
+  height:10px;
+  background: #f0f0f0;
+  transform: rotate(45deg);
+  position: absolute;
+  top: -5px;
+  left:10px;
+}
+.level-3-list {
+  position: relative;
+  font-size: 12px;
+  display: flex;
+  justify-content: flex-start;
+  border-radius: 5px;
+  width:770px;
+  padding: 20px 10px;
+  background: #f0f0f0;
+}
+.active-one span{
+  display: block !important;
+}
+.pc-list-detail .one-level-ul{
+  border-bottom: 2px solid #f73e3c;
+  width:810px;
+  display: flex;
+  overflow: hidden;
+  justify-content: flex-start;
+}
+.one-level-list-li span{
+  display: none;
+  width:10px;
+  height:10px;
+  background: #f73e3c;
+  transform: rotate(45deg);
+  position: absolute;
+  bottom: -5px;
+  left: 50%;
+  margin-left: -5px;
+}
+.two-level-list-li span{
+  display: none;
+  width:10px;
+  height:10px;
+  background: #f0f0f0;
+  transform: rotate(45deg);
+  position: absolute;
+  bottom: -5px;
+  left: 50%;
+  margin-left: -5px;
+}
+.pc-list-detail .one-level-ul li {
+  cursor: pointer;
+  position: relative;
+  padding-top: 20px;
+  padding-bottom: 15px;
+  margin-right: 30px;
+  font-size: 15px;
+  color:#333;
+}
+.pc-list-item{
+  border-bottom: 1px solid #e5e5e5;
+  padding-bottom: 20px;
+  display: flex;
+  justify-content: flex-start;
+}
+.pc-list-title{
+  padding-top: 20px;
+  width:70px;
+  text-align: left;
+  font-size: 15px;color:#666;
+}
+.pc-list-top{
+  padding-bottom: 20px;
+  border-bottom: 1px solid #e5e5e5;
+  display: flex;
+  justify-content: space-between;
+  font-size: 12px;
+  color:#666666;
+}
+.pc-organ-box{
+  overflow: hidden;
+  margin: 20px auto;
+  display: flex;
+  justify-content: flex-start;
+}
+.pc-list-l{
+  width:880px;
+  background: #fff;
+  margin-right: 20px;
+}
+.pc-list-r{
+  width:260px;
+  background: #fff;
+}

@@ -1,0 +1,87 @@
+.coupon-detail p {
+  color:#333;
+  margin-top: 30px;
+  font-size: 18px;
+}
+.coupon-detail span{
+  color:#999;margin-top: 15px;
+  font-size: 15px;
+  display: block;
+}
+.coupon-detail{
+  width:60%;
+  margin-left: 4%;
+}
+.withamount{
+  font-size: 14px !important;display: block;position:absolute;
+  line-height:20px;
+  width:100%;
+  text-align: center;
+  top:30px;
+}
+.coupon-num{
+  position: relative;
+  text-align: center;
+  line-height: 140px;
+  width:25%;
+  color:#fff;font-size: 12px;
+}
+.coupon-num span{
+  font-size: 30px;
+}
+.coupon-list-ul{
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  margin-top: 20px;
+}
+.coupon-used{
+  cursor: pointer;
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: flex-start;
+  height:110px;
+  width:465px;
+  background: url("../img/coupon-used1.png") no-repeat 0px 0px;
+  background-size: 100% 100%;
+}
+.coupon-canuse{
+  cursor: pointer;
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: flex-start;
+  height:110px;
+  width:465px;
+  background: url("../img/coupon-canuse.png") no-repeat 0px 0px;
+  background-size: 100% 100%;
+}
+.active-tab-cou{
+
+  background: #f73e3c;color:#fff !important;
+  border-radius: 5px;
+}
+.coupon-tab span{
+  display: block;
+  cursor: pointer;
+  height:35px;text-align: center;
+  width:90px;
+  line-height:35px;
+  color:#f73e3c;
+
+}
+.coupon-tab{
+  margin-top: 20px;
+  border:1px solid #f73e3c;
+  border-radius: 5px;
+  display: flex;
+  justify-content: flex-start;
+  width:180px;
+}
+.person-history{
+  background: #fff;
+  padding: 20px;
+  /*width:960px;*/
+}
+.main-system-title{
+  font-size: 18px;color:#f73e3c;
+}

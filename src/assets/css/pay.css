@@ -1,0 +1,205 @@
+.real-pay1 a {
+  color:#ff6200;
+}
+.real-pay1{
+  display: block;
+  text-align: right;
+  color:#1b1b1b;
+  font-size: 20px;
+  font-weight: bold;
+}
+.orderpay-test{
+  margin-top: 30px;
+  font-size: 14px;color:#5a5a5a
+}
+.orderpay-test div{
+  margin-bottom: 20px;
+}
+.youhuiquan{
+  cursor: pointer;
+  padding-right: 30px;
+  background: url("../img/main/sanjiao.png") no-repeat right 20px;
+  background-size: 19px 12px;
+}
+.order-price-new{
+  float: right;
+  color:#464646;
+  font-size: 16px;
+  margin-top: 30px;
+}
+.order-price-new span{
+  color:#ff6200;
+}
+
+.order-detail-text{
+  display: flex;justify-content: space-between;
+  margin-bottom: 30px;
+}
+.order-detail-text div{
+  font-size: 18px;
+  color:#1b1b1b;
+}
+.order-detail-text p{
+  color:#949494;
+  font-size: 18px;
+}
+.order-detail-all{
+  margin-top: 30px;
+}
+.order-detail-all{
+  padding: 40px;
+  background: #fff;
+}
+.order-sure-box h1{
+  color:#fff;
+}
+.sure-order{
+  margin-top: -150px;
+  position: relative;
+  z-index: 100;
+}
+.order-bg > div{
+  position: absolute;
+  left: 0px;top:0px;
+  width: 100%;
+  height: 20px;
+  box-shadow:inset 0px 15px 10px -15px #000;
+}
+.order-bg{
+  /*position: absolute;*/
+  width: 100%;
+  /*top:0px;*/
+  /*left: 0px;*/
+  z-index: 1;
+}
+.youhui>div{
+  background: #f1f4f7;
+  margin-bottom: 10px;
+  padding: 0 30px;
+  justify-content: space-between;
+  line-height: 55px;
+}
+.youhui >div>a{
+  float: left;
+  color:#1b1b1b;
+  font-size: 18px;
+  line-height: 55px;
+
+}
+.youhui>div>span{
+  float: right;
+  line-height: 55px;
+  font-size: 14px;
+  margin-right: 50px;
+  color:#ff5000;
+}
+
+
+
+
+.closemask{
+  float: right;
+  width:100px;
+  height:40px;
+  line-height: 40px;
+  color:#fff;
+  border-radius: 5px;
+  background: #ff5000;
+  text-align: center;
+
+}
+.mask > div{
+  position: absolute;
+  width:960px;
+  top:100px;
+  left: 50%;
+  margin-left: -480px;
+  padding: 20px;background: #fff;
+
+}
+.mask{
+  position: fixed;
+  top:0px;
+  left:0px;
+  height:100%;
+  width:100%;
+  background: rgba(0,0,0,0.5);
+}
+.pay-detail{
+  /*display: flex;*/
+  /*justify-content: flex-start;*/
+}
+.pay-detail div{
+  color:#333;
+  font-size: 15px;
+}
+.pay-detail span{
+  display: block;
+  text-align: right;
+  padding-bottom: 20px;
+
+  font-size: 12px;color:#1b1b1b;
+  /*color:#f7260a;*/
+  /*font-size: 25px;*/
+  /*margin-left: 5px;*/
+}
+.pay-detail p{
+  width:130px;
+  height:40px;
+  font-size: 18px;
+  text-align: center;
+  line-height: 40px;
+  color:#fff;
+  background: #d7430e;
+  border-radius: 50px;
+  margin-top: 25px;
+  margin-left: 10px;
+  cursor: pointer;
+  border:1px solid #be6748;
+}
+.payBox{
+  display: flex;
+  justify-content: flex-end;
+
+}
+.bind-phone{
+  font-size: 15px;
+  color:#333;
+}
+.bind-phone span{
+  color:#ff5000;
+  margin-left: 10px;
+  cursor: pointer;
+}
+
+.use-coin{
+  background: url("../img/agree.png") no-repeat 0px 0px !important;
+  background-size: 16px 16px !important;
+}
+.youhui div p span{
+  cursor: pointer;
+  display: block;
+  width:16px;
+  background: #e5e5e5;
+  margin-top: 19px;
+  margin-left: 30px;
+  height:16px;
+}
+.youhui div p {
+  margin-left: 20px;
+  line-height: 55px;
+  color:#333;
+  float: left;
+  font-size: 15px;
+  display: flex;
+  justify-content: flex-start;
+}
+
+.about-us-organ p{
+  margin-top: 15px;
+  line-height: 25px;
+}
+.about-us-organ{
+  color:#333;
+  font-size:14px;
+}

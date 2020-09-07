@@ -1,0 +1,241 @@
+.class-detail-pay p span{
+  color:#f7260a;
+}
+.mainclass-tab span{
+  cursor: pointer;
+  /*width: 90px;*/
+  padding: 0 15px;
+  height: 37px;
+  font-size: 18px;
+  color:#333333;
+  display: block;
+  text-align: center;
+  line-height: 37px;
+  border-radius: 30px;
+}
+.tab-active{
+  background: #eb6100;
+  color:#fff !important;
+}
+
+.mainclass-tab{
+  display: flex;
+  margin-top: 22px;
+  justify-content: flex-start;
+}
+.classs-handle-btn-n{
+  border:1px solid #e5e5e5;
+  color:#333;
+}
+.classs-handle-btn-y{
+  border:1px solid #f73e3c;
+  color:#f73e3c;
+}
+.class-detail-handle span{
+  position: relative;
+  cursor: pointer;
+  margin-left: 10px;
+  margin-bottom: 10px;
+  border-radius: 5px;
+  float: right;
+  display: block;
+  height:28px;
+  width:78px;
+  line-height:28px;
+  text-align: center;
+  font-size: 12px;
+
+
+}
+.class-detail-handle{
+  margin-top: 15px;
+  float: right;
+  width:220px;
+}
+.class-detail-pay p{
+  color:#666;
+  font-size: 12px;
+}
+.class-detail-pay{
+  width:100px;float: left;
+  margin-top: 5px;
+  font-size: 14px;
+  color:#f7260a;
+  text-align: center;
+}
+.class-detail-num{
+  width:100px;text-align: center;
+  color:#666;font-size: 12px;
+  float: left;
+  margin-top: 5px;
+}
+.class-detail-price{
+  width:100px;text-align: center;
+  color:#666;font-size: 12px;
+  float: left;
+  margin-top: 5px;
+}
+.class-detail-d-box>a{
+  color:#666;
+  font-size: 12px;
+  text-decoration: none;
+  display: block;
+  margin-top:10px;
+}
+.main-center-line{
+  padding: 0 25px 0 0px;
+  border-left: 1px solid #aaaaaa;
+  height: 20px;
+  margin-top: 27px;margin-left: 25px;
+}
+.main-left{
+  display: flex;
+  position: relative;
+  justify-content: flex-start;
+}
+.main-left p{
+  font-size: 18px;color:#333;
+  height: 37px;
+  margin-top: 20px;
+  line-height: 37px;
+}
+.class-detail-d-box div>span{
+  color:#666;font-size: 12px;
+  display: block;
+  margin-top: 10px;
+}
+.class-detail-d-box p {
+  color:#333;
+  font-size: 16px;
+  margin-top: 5px;
+  font-weight: bold;
+}
+.class-detail-d-box{
+  flex: 1;
+  margin-left: 20px;
+}
+.product-type{
+  display: flex; justify-content: flex-start;
+}
+.product-type a {
+  color:#ff6200;
+}
+.class-detail-img-box{
+  width:155px;
+  height:107px;
+  border-radius: 5px;
+  overflow: hidden;
+}
+.class-detail-img-box img{
+  width:100%;
+  height:100%;
+  display: block;
+}
+.class-detail-img{
+  /*width:370px;*/
+  float: left;
+  display: flex;
+  justify-content: flex-start;
+}
+.real-pay{
+  position:absolute;
+  right: 0px;
+  top:0px;
+  line-height: 30px;
+  font-size: 12px;color:#464646;
+}
+.real-pay span{
+  font-size: 14px;
+  font-weight: bold;
+  color:#ff6200;
+}
+.class-orderid{
+  /*background: #fff1de;*/
+  line-height: 30px;
+  padding:0 20px 5px 27px;
+  display: flex;
+  justify-content: flex-start;
+  background: url("../../assets/img/main/main-2.png") no-repeat left 4px;
+  background-size: 18px 19px;
+  font-size: 12px;
+  border-bottom: 1px solid #d2d2d2;
+  position: relative;
+}
+.classes-table > li {
+  box-shadow: 1px 1px 10px #b9bbbb;
+  cursor: pointer;
+  padding: 20px;
+  border-bottom: 1px solid #e5e5e5;
+  /*height:160px;*/
+  margin-bottom: 20px;
+}
+.ctitle1{
+  width:390px;
+}
+.ctitle2{
+  width:140px;
+}
+.ctitle3{
+  width:50px;
+}
+.ctitle4{
+  width:140px;
+}
+.ctitle5{
+  width:240px;
+}
+
+
+.cancle-col{
+  font-size: 18px;
+  color:#ff6200;
+  cursor: pointer;
+  line-height: 89px;
+}
+.desc-item{
+  color:#6b6b6b;
+  font-size: 14px;
+  margin-top: 10px;
+  display: block;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  width: 80%;
+  height: 20px;
+
+}
+ .col-org-text span{
+  color:#6b6b6b;
+  font-size: 14px;
+  margin-top: 10px;
+  display: block;
+}
+.col-org-text p {
+  font-size: 18px;
+  color:#2a2a2a;
+  font-weight: bold;
+}
+.col-org-left .col-org-text{
+  margin-left: 20px;
+}
+.col-org-left{
+  display: flex;
+  justify-content: flex-start;
+  width: 80%;
+}
+.col-org-left > img{
+  width: 87px;
+  height: 87px;
+  border:1px solid #dcdcdc;
+}
+.col-orglist li {
+  display: flex;
+  justify-content: space-between;
+  padding:20px;
+  box-shadow: 1px 1px 10px #b9bbbb;
+  cursor: pointer;
+  margin-bottom: 20px;
+}
+.class-list-box{
+  margin-top: 20px;
+}
