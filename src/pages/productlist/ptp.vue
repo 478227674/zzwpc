@@ -162,9 +162,6 @@
       this.getProductListByType();
       this.getTimerText();
       this.sortTestTime = JSON.parse(localStorage.getItem('timer'));
-      console.log(this.sortTestTime)
-
-
     },
     methods:{
       getTimerText(){

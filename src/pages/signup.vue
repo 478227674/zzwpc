@@ -1,37 +1,40 @@
 <template>
   <div class="hello" style="background: #fff;height: 100%;">
     <div class="login-box">
-      <div class="pc-center">
-        <div class="login-form">
-          <div class="sigin-up-btn" @click="openLogin">GO~登录</div>
-          <div class="login-b">
-            <div class="login-r">
-              <div class="login-title">太奇教育分销平台</div>
-              <p class="login-ps">新一代分销体系，为企业提供一站式</p>
-              <ul class="login-form-item">
-                <li>
-                  <img src="../assets/img/zzw/loginphone.png" alt="">
-                  <input v-model="userPhone" placeholder="请输入手机号" type="text">
-                </li>
-                <li>
-                  <img src="../assets/img/zzw/logincode.png" alt="">
-                  <input v-model="code" placeholder="请输入验证码" type="text">
-                  <span class="getcode" @click="getCodeCheck">{{codeText}}</span>
-                </li>
-                <li>
-                  <img src="../assets/img/zzw/loginpassword.png" alt="">
-                  <input v-model="userPwd" placeholder="请输入密码" type="text">
-                </li>
-                <li>
-                  <img src="../assets/img/zzw/loginpassword.png" alt="">
-                  <input v-model="userPwd2" placeholder="请再次输入密码" type="text">
-                </li>
-              </ul>
-              <div class="login-btn" @click="signUpNowCode">注册</div>
-              <div class="commpany">Copyright@1998-2014 太奇教育 .All Rights Reserved</div>
-            </div>
+      <div class="login-title">
+        <h2>元儒教育城分销平台</h2>
+<!--        <span>新一代分销体系，为企业提供一站式服务</span>-->
+      </div>
+      <div class="login-box-new">
+        <div class="login-type">
+          <p @click="openLogin"><span>已有账号，</span>马上登陆</p>
+          <div>注册账户</div>
+        </div>
+        <div class="login-item">
+          <div class="login-username">
+            <input v-model="userPhone" placeholder="请输入手机号" type="text">
+          </div>
+          <div class="login-code">
+            <input v-model="code" placeholder="请输入验证码" type="number">
+            <span @click="getCodeCheck">{{codeText}}</span>
+          </div>
+          <div class="login-userpass">
+            <input v-model="userPwd" placeholder="请输入登录密码" type="password">
+          </div>
+          <div class="login-userpass">
+            <input v-model="userPwd2" placeholder="请输入登录密码" type="password">
           </div>
         </div>
+        <div class="login-hand">
+          <div class="login-remnber">
+            <span :class="{'remnber-box':isAgree}" @click="isAgree = !isAgree"></span>
+            <p>我已阅读并接受 <span>用户协议</span> 和 <span>隐私政策</span></p>
+          </div>
+        </div>
+        <div class="login-btn" @click="signUpNowCode">登录</div>
+      </div>
+      <div style="text-align: center;font-size: 12px;color:#fff;">
+        Copyright@1998-2014 元儒教育城 .All Rights Reserved
       </div>
     </div>
     <el-dialog title="验证码" :visible.sync="codeFlag">
@@ -57,6 +60,7 @@
     name: 'HelloWorld',
     data () {
       return {
+        isAgree:false,
         codeFlag:false,
         userPhone:'',
         userPwd:'',
@@ -100,6 +104,10 @@
         }
         if(this.userPwd != this.userPwd2){
           this.toast('两次密码不一致，请重新输入')
+          return;
+        }
+        if(!this.isAgree){
+          this.toast('请同意用户协议和隐私政策')
           return;
         }
         var obj  = {
@@ -162,9 +170,6 @@
 
       openLogin(){
         this.$router.push('/pages/login')
-      },
-      openIndex(){
-        this.$router.push('/')
       },
       //验证码abcdefghijklnmopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ
       randomNum(min, max) {

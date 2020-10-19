@@ -4,12 +4,12 @@
       <div class="pc-center">
         <div class="login-top">
           <div @click="openSignup">
-            Hi!欢迎来到太奇建工AI<span>免费注册</span>
+            Hi!欢迎来到元儒教育城<span>免费注册</span>
           </div>
         </div>
       </div>
       <div class="login-box1">
-        <p>欢迎登录太奇建工AI</p>
+        <p>欢迎登录元儒教育城</p>
         <div class="input-item">
           <img class="itemimg1" src="../assets/img/login-phone.png" alt="">
           <input type="text" v-model="userPhone" placeholder="请输入手机号">

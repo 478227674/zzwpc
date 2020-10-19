@@ -85,7 +85,7 @@
 
           </li>
         </ul>
-        <div @click="buyDialog" class="salepackage-btn">温馨提示：欢迎使用太奇AI智能系统，有颜色的学科代表已经购买，没有颜色的还未购买，系统可免费试用7天！！点击购买销售包</div>
+        <div @click="buyDialog" class="salepackage-btn">温馨提示：欢迎使用元儒教育城，有颜色的学科代表已经购买，没有颜色的还未购买，系统可免费试用7天！！点击购买销售包</div>
       </div>
     </div>
     <div class="pc-center">
@@ -296,7 +296,6 @@ export default {
             subjectData[i].push(res.data[i][n])
           }
         }
-        console.log(subjectData)
         return;
         let dateArr = [];
         let mathArr = res['1001'];

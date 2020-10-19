@@ -37,11 +37,32 @@ body{
 .el-message .el-icon-success,.el-message .el-icon-error{
   color: #fff !important;
 }
-
 .el-pagination.is-background .el-pager li:not(.disabled).active{
   background: #eb6100 !important;
 }
 
+.el-pagination.is-background .el-pager li:not(.disabled):hover{
+  color:#eb6100 !important;
+}
+.el-button--primary{
+  background: #eb6100;
+  border-color:#eb6100;
+}
+.el-button--primary:focus, .el-button--primary:hover{
+  background: #ec6941;
+  border-color:#ec6941;
+}
+.el-button:focus, .el-button:hover{
+  background: #f38f70;
+  border-color:#f38f70;
+  color:#fff;
+}
+.l-select .el-input.is-focus .el-input__inner,.el-select .el-input__inner:focus{
+  border-color: #eb6100 !important;
+}
+.el-select-dropdown__item.selected{
+  color:#eb6100 !important;
+}
 
 
 
@@ -91,19 +112,28 @@ body{
   height:36px;
   float: left;
 }
-.pc-top ul {
+.pc-top > ul {
   display: flex;
   justify-content: flex-start;
 }
-.pc-top ul li {
+.pc-top > ul li {
   padding: 0 15px;
   cursor: pointer;
 
   font-size: 12px;
   line-height: 36px;
 }
-.pc-top ul li a{
-  color:#a8a8a8;
+.pc-top > ul li a{
+  color:#595959;
+}
+.mask{
+  position: fixed;
+  top:0px;
+  z-index: 100;
+  left:0px;
+  height:100%;
+  width:100%;
+  background: rgba(0,0,0,0.5);
 }
 .main-system-title{
   position: relative;
@@ -114,19 +144,14 @@ body{
 }
 .pc-top-r{
   float: right;
+  display: flex;
+  justify-content: flex-start;
 }
 .us-1{
   border-right:none !important;
 }
-.pc-top-r div{
-  cursor: pointer;
-  height: 16px;
-  margin-top: 10px;
-  float: right;
-  font-size: 12px;
-  color:#a8a8a8;
-  padding: 0 10px;
-  border-right:1px solid #cccccc
+.pc-top-r > div{
+
 }
 @media screen and (max-width: 1098px) {
   .pc-center{

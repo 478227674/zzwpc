@@ -1,56 +1,46 @@
 <template>
   <div class="hello" style="background: #f5f5f5">
-    <div style="background: #fff;">
-      <div class="pc-center od-top">
-        <div class="organ-name-bpoxx">
-          <img :src="orgData.logoUrl" alt="">
-          <div class="organ-name-top">{{orgData.orgName}}
-            <div v-show="orgData.orgTelephone!=0">{{orgData.orgTelephone}}</div>
-            <div v-show="orgData.orgTelephone==0">成为本机构会员可见</div>
-          </div>
+    <orghead></orghead>
+    <div class="pc-center">
+      <div class="org-schools">
+        <div class="org-schools-list">
+          <ul>
+            <li :class="{'schools-address-active':item.lat == center.lat}" v-for="(item,index) in schoolList" @click="lookDetail(item)">
+              <span class="schools-index schools-address-icon-gray">{{index+1}}</span>
+              <div class="schools-address">
+                <p>{{item.schoolname}}</p>
+                <span>{{item.schooladdress}}</span>
+              </div>
+            </li>
+
+          </ul>
         </div>
-        <div class="od-intro">{{orgData.orgIntro}}</div>
-      </div>
+        <div class="org-schools-address">
+          <baidu-map :center="center" :zoom="zoom" @ready="handler" style="height:500px"
+                     :scroll-wheel-zoom='true'>
+            <bm-navigation anchor="BMAP_ANCHOR_BOTTOM_RIGHT"></bm-navigation>
 
+            <bm-marker-clusterer :averageCenter="true">
+              <bm-marker v-for="marker of schoolList" :key="marker.lat" :position="{lng: marker.lng, lat: marker.lat}"
+                         @click="lookDetail(marker,index)"></bm-marker>
+            </bm-marker-clusterer>
 
-    </div>
-    <div style="background: #ff7f00">
-      <div class="od-tab pc-center">
-        <ul>
-          <li @click="openOrganDetail">
-            首页
-          </li>
-          <li @click="openOrganProduct">
-            课程
-          </li>
-          <li  class="organ_active" @click="openOrganSchool">
-            校区
-          </li>
-          <li @click="openOrganComments">
-            评价
-          </li>
-          <li  @click="openOrganPresent">
-            机构简介
-          </li>
-        </ul>
+            <bm-info-window :position="{lng:center.lng, lat: center.lat}" :title="center.schoolname"
+                            :show="center.show">
+              <p><span class="left">地址：</span><span class="right">{{center.schooladdress}}</span></p>
+            </bm-info-window>
+          </baidu-map>
+          <!--            <mapa v-if="schoolList.length>0" :schoolList="schoolList"></mapa>-->
+        </div>
       </div>
     </div>
-    <!--<div class="pc-center" style="margin-top: 20px;">-->
-      <!--<img :src="orgData.imageUrl" style="width:100%;" alt="">-->
-    <!--</div>-->
-
-<!--    <div class="pc-center pc-center-padding" style="padding-bottom: 20px;">-->
-<!--      <div class="special-class">-->
-<!--        <span>我们的校区</span>-->
-<!--      </div>-->
-<!--      <mapa v-if="addresslist.length>0" :addresslist="addresslist"></mapa>-->
-<!--    </div>-->
 
   </div>
 
 </template>
 <script>
-  // import mapa from '../../components/map'
+  import orghead from '../../components/orghead'
+  import mapa from '../../components/map'
 
   export default {
     name: 'HelloWorld',
@@ -58,51 +48,65 @@
       return {
         orgId:null,
         addresslist:[],
-        orgData:{},
+        orgObj:{},
+        schoolList:[],
+        center: {},
 
       }
     },
     components:{
-      // mapa
-
+      mapa,
+      orghead
     },
     created(){
-      this.orgId = this.$route.query.id;
-      this.getOrganDetail();
-      this.$emit('header_two',true);
+      this.orgId = this.$store.state.user.activeOrgId;
+      this.$emit('header', false)
+      this.getOrgInfo();
     },
     methods:{
-      getOrganDetail(){
-        this.http.post('/org/queryOrgInfo',{orgId:this.orgId}).then(res=>{
-          if(res.code == 0){
-            this.orgData = res.data
-            this.addresslist = JSON.parse(res.data.orgCampus)
-            if(this.addresslist.length>0){
-              for(var i=0;i<this.addresslist.length;i++){
-                this.addresslist[i].show = false;
+      //获取机构详情
+      getOrgInfo() {
+        this.http.post('/dir/queryOrgInfo', {orgId: this.orgId}).then(res => {
+          if (res.code == 0) {
+            this.orgObj = res.data;
+            this.schoolList = JSON.parse(res.data.orgCampus)
+            if(this.schoolList.length>0){
+              for(var i=0;i<this.schoolList.length;i++){
+                this.schoolList[i].show = false;
               }
             }
+            //地图初始化
+            if(this.schoolList.length > 0){
+              this.setBaiduMapPoint(this.schoolList[0].lng,this.schoolList[0].lat)
+            }
+
           }
         })
       },
-
-      openIndex(){
-        this.$router.push('/')
+      //百度地图
+      handler({BMap, map}) {
+        var _this = this;
+        this.Bmap = map;
       },
-      openOrganDetail(){
-        this.$router.push({path:'/pages/organ_detail',query:{id:this.orgId}})
+      lookDetail(data) {
+        this.center = data;
+        this.center.show = true;
+        this.setBaiduMapPoint(data.lng,data.lat)
       },
-      openOrganProduct(){
-        this.$router.push({path:'/pages/organ_product',query:{id:this.orgId}})
-      },
-      openOrganSchool(){
-        this.$router.push({path:'/pages/organ_school',query:{id:this.orgId}})
-      },
-      openOrganComments(){
-        this.$router.push({path:'/pages/organ_comment',query:{id:this.orgId}})
-      },
-      openOrganPresent(){
-        this.$router.push({path:'/pages/organ_present',query:{id:this.orgId}})
+      //地图中心点显示
+      setBaiduMapPoint(lng,lat){
+        var point = new BMap.Point(lng,lat)
+        this.Bmap.centerAndZoom(point, 13)
+        var marker = new BMap.Marker(point) // 创建标注
+        this.Bmap.addOverlay(marker) // 将标注添加到地图中
+        var circle = new BMap.Circle(point, 6, {
+          strokeColor: 'Red',
+          strokeWeight: 6,
+          strokeOpacity: 1,
+          Color: 'Red',
+          fillColor: '#f03'
+        })
+        this.Bmap.addOverlay(circle)
       },
     },
   }

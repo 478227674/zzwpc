@@ -34,18 +34,18 @@
           <div class="block">
             <el-pagination
               background
-              @current-change="gethisOrgListByPagenum"
-              :current-page="orgPage"
+              @current-change="handleCurrentChange"
+              :current-page="pagenum"
               :page-size="5"
               layout="prev, pager, next"
-              :total="orgTotal">
+              :total="total">
             </el-pagination>
           </div>
         </div>
         <div class="his-list-box" v-show="tabindex==1">
 
           <ul class="his-list">
-            <li v-for="item in hisOrgList">
+            <li v-for="item in hisOrgList" @click="openOrgDetail(item.orgId)">
               <span class="browser-time">{{item.createTime}}</span>
               <div class="position-div"></div>
               <div class="his-div">
@@ -98,8 +98,6 @@
       pagesize:5,
       total:1,
       hisProductList:[],
-
-
       orgPage:1,
       orgTotal:0,
       hisOrgList:[],
@@ -155,8 +153,8 @@
         this.openProductDetailByType(data)
     },
     //打开机构首页详情
-    openOrgDetail(data){
-      this.openNewPage('/pages/orgdetail',{orgId:data.id})
+    openOrgDetail(id){
+      this.openNewPage('/pages/orgdetail',{orgId:id})
     },
     //取消关注机构
     cancleCollectOrg(data){

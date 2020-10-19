@@ -45,7 +45,6 @@
                   </li>
                 </ul>
               </el-collapse-item>
-
             </el-collapse>
           </div>
         </div>
@@ -103,8 +102,6 @@
         productName:'',
         player:undefined,
         user:null,
-
-
       }
     },
     components: {},
@@ -113,7 +110,6 @@
       this.ptype = this.$route.query.type;
       this.productId = this.$route.query.id;
       this.productName = this.$route.query.name;
-
       this.http.post('/product/querySubjectListByProduct', {
         productId: this.productId,
         productType: this.ptype
@@ -182,7 +178,7 @@
             let domStr = '<video id="player-container-id" class="video-dom" width="500" height="300" playsinline webkit-playsinline preload="auto" src=""></video>'
             document.getElementById('box-video').innerHTML = domStr;
           }
-          this.$nextTick(function () {
+          this.$nextTick(function(){
             this.player = TCPlayer('player-container-id', { // player-container-id 为播放器容器 ID，必须与 html 中一致
               fileID: data.lineVideoUrl, // 请传入需要播放的视频 filID（必须）
               appID: '1251662691', // 请传入点播账号的 appID（必须）
@@ -266,13 +262,10 @@
     padding: 0 20px;
     border-bottom: none !important;
   }
-
   .el-collapse {
     border:none !important;
   }
-  #doyoo_panel{
-    display: none !important;
-  }
+
 </style>
 <style scoped>
   .video-box-all{

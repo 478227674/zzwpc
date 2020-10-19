@@ -5,7 +5,7 @@
         <div style="padding: 20px 20px 0px 20px">
           <div class="pc-list-top">
             <div>
-              <span>太奇网课平台</span>
+              <span>元儒教育城</span>
               <span>></span>
               <span>特价课程</span>
             </div>
@@ -73,7 +73,7 @@
         </div>
         <div style="height:20px;background: #f7f7f7;"></div>
         <div class="pc-product-list-bot">
-          <div>选择太奇网课平台</div>
+          <div>选择元儒教育城平台</div>
           <span class="pc-line"></span>
           <ul>
             <li>

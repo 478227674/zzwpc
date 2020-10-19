@@ -7,7 +7,7 @@
           <div class="swiper-box-postion" style="position: relative;">
             <div style="height: 345px;">
               <slider :options="sliderinit" :sliderinit="sliderinit">
-                <slideritem v-for="(item,index) in bannerList" :key="dir_index" @tap="openBannerDetail(item)">
+                <slideritem v-for="(item,index) in bannerList" :key="index" @tap="openBannerDetail(item)">
                   <img style="width: 100%;height: 345px" :src="item.attachment.fileUrl" alt="">
                 </slideritem>
                 <!-- slot  -->
@@ -17,38 +17,38 @@
           <div class="person-nav">
             <ul>
               <li>
-                <img src="../assets/img/dis/helpcenter.png" alt="">
-                <div>
-                  <p>问题中心</p>
-                  <span>一分钟了解分销时长</span>
-                </div>
-              </li>
-              <li>
                 <img src="../assets/img/dis/newperson.png" alt="">
                 <div>
-                  <p>新手专区</p>
-                  <span>让新进驻的更容易上手</span>
+                  <p>拼团砍价</p>
+                  <span>拼团课程、砍价课程</span>
                 </div>
               </li>
               <li>
-                <img src="../assets/img/dis/questionall.png" alt="">
+                <img src="../assets/img/dis/helpcenter.png" alt="">
                 <div>
-                  <p>问题汇总</p>
-                  <span>你想知道的都在这里</span>
+                  <p>免费课程</p>
+                  <span>名师课程免费送</span>
                 </div>
               </li>
               <li>
                 <img src="../assets/img/dis/livepark.png" alt="">
                 <div>
-                  <p>直播广场</p>
-                  <span>名师限时免费直播</span>
+                  <p>兑换领券</p>
+                  <span>兑换课程、领取优惠券</span>
                 </div>
               </li>
               <li>
+                <img src="../assets/img/dis/questionall.png" alt="">
+                <div>
+                  <p>学员保障</p>
+                  <span>分批付费，随时退费</span>
+                </div>
+
+              <li>
                 <img src="../assets/img/dis/newproduct.png" alt="">
                 <div>
-                  <p>最新商品</p>
-                  <span>每周都有大咖新课</span>
+                  <p>问题汇总</p>
+                  <span>带你玩转元儒网</span>
                 </div>
               </li>
             </ul>
@@ -56,12 +56,13 @@
         </div>
         <div class="person-box">
           <div class="person-box-head">
-            <img src="http://wk.xhcedu.com/2020/202005/a_835f873c4b4d4de5a5e175ebb341a4f1.jpg" alt="">
+            <img :src="userHead" alt="">
+<!--            <img src="../assets/img/personhead.png" alt="">-->
           </div>
           <div v-if="isLogin">
             <div class="say-hello">
-              <span>Hi,{{userphone}}的店铺</span>
-              <span>欢迎加入我们，快赚取佣金吧!</span>
+              <span>Hi,{{userphone}}</span>
+<!--              <span>欢迎加入我们，快赚取佣金吧!</span>-->
             </div>
             <div class="see-myproduct linear-btn" @click="loginOut">
               退出
@@ -70,7 +71,7 @@
           <div v-else>
             <div class="say-hello">
               <span>您还没有登录</span>
-              <span>登录后可分销全场产品</span>
+<!--              <span>登录后可分销全场产品</span>-->
             </div>
             <div class="see-myproduct linear-btn" @click="openLoginAndSignup(1)">
               登录
@@ -83,11 +84,7 @@
             </div>
             <div class="tab-active-n">
               <ul>
-                <li>企业学院包名开始！</li>
-                <li>企业学院包名开始！</li>
-                <li>企业学院包名开始！</li>
-                <li>企业学院包名开始！</li>
-                <li>企业学院包名开始！</li>
+                <li @click="openNewsDetail(item)" v-for="item in newList">{{item.newTitle}}！</li>
               </ul>
             </div>
           </div>
@@ -95,17 +92,59 @@
       </div>
     </div>
     <div class="join-dis pc-center">
-      <img src="../assets/img/dis/join-dis.png" alt="">
+      <a href="https://www.zz1819.com/mba/#/pages/search" target="_blank">
+        <img src="https://www.zz1819.com/bg/pcpush.png" alt="">
+
+      </a>
+<!--      <span>用户消费有保障的教育培训机构服务平台</span>-->
+    </div>
+    <!--课程分类-->
+    <div class="five-subject">
+      <!--机构店铺-->
+      <div id="ir43" class="pc-center">
+        <div class="indexscan-box title-noborder index-goodpro indexfree-list">
+          <div>
+            课程分类 <span class="title-ps">每天，为上万用户找到满意课程</span>
+          </div>
+          <span @click="openMore()">MORE >></span>
+        </div>
+        <div class="pro-type-box-all">
+          <div class="pro-type-box">
+            <div class="pro-type-left">
+              <div style="margin-bottom: 10px;" v-for="(item,index) in sortList" v-if="index < 3">
+                  <div class="type-title">{{item.name}} <span @click="openMore"> 更多>></span></div>
+                  <div class="type-big-class" >
+                    <span :class="{'active-big-class': item.index == indexs}" @click="chooseTwoLevel(items,index,indexs)" v-for="(items,indexs) in item.children" >{{items.name}}</span>
+                  </div>
+                  <div class="type-small-class type-border-bottom">
+                    <span @click="searchResultBySort(items)" class="three-level-span"  v-for="items in item.children[item.index].children">{{items.name}}</span>
+                  </div>
+                </div>
+            </div>
+            <div class="pro-type-left">
+              <div style="margin-bottom: 10px;" v-for="(item,index) in sortList" v-if="index > 2 && index < 6">
+                <div class="type-title">{{item.name}} <span @click="openMore"> 更多>></span></div>
+                <div class="type-big-class" >
+                  <span :class="{'active-big-class': item.index == indexs}" @click="chooseTwoLevel(items,index,indexs)" v-for="(items,indexs) in item.children" >{{items.name}}</span>
+                </div>
+                <div class="type-small-class type-border-bottom">
+                  <span @click="searchResultBySort(items)" class="three-level-span" v-for="items in item.children[item.index].children">{{items.name}}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
     <!--机构店铺-->
     <div class="five-subject">
       <!--机构店铺-->
       <div id="ir45" class="pc-center">
-        <div class="indexscan-box title-noborder index-goodpro indexfree-list">
+        <div class="indexscan-box title-noborder  ">
           <div>
-            机构店铺 <span class="title-ps">他们已入驻，全网分销产品</span>
+            最新入驻
           </div>
-          <span @click="openGroup()">MORE >></span>
+          <span @click="openMore()">更多机构</span>
         </div>
         <div class="organ-list">
           <ul>
@@ -120,15 +159,27 @@
       </div>
     </div>
     <!--某个机构的店铺-->
-    <div class="five-subject" v-for="(items,indexs) in orgProList">
+    <div class="five-subject" >
       <div id="ir12" class="pc-center">
-        <div class="indexscan-box title-noborder">
-          <div class="store-title-top">
-            <div class="index-store-headleft"><img class="" src="../assets/img/teststoreicon.png" alt=""></div>启智教育的店铺 <span class="title-ps">5000w用户的共同选择，您的掌上老师！</span>
+<!--        <div class="indexscan-box title-noborder">-->
+<!--          <div class="store-title-top">-->
+<!--            <div class="index-store-headleft"><img class="" :src="items.orgInfo.logoUrl" alt=""></div>{{items.orgInfo.orgName}} <span class="title-ps">{{items.orgInfo.orgIntro}}</span>-->
+<!--          </div>-->
+<!--          <span @click="openOrgDetail(items.orgInfo)">MORE >></span>-->
+<!--        </div>-->
+        <div class="indexscan-box title-noborder  ">
+          <div>
+            推荐机构
           </div>
-          <span @click="openGroup()">MORE >></span>
+          <span @click="openMore()">更多机构</span>
         </div>
-        <div class="free-product-list">
+        <div class="org-logo-list">
+          <div :class="{'org-active':indexs == orgIndex}" @click="orgIndex = indexs" v-for="(items,indexs) in orgProList">
+            <img :src="items.orgInfo.logoUrl" alt="">
+            <span>{{items.orgInfo.orgName}}</span>
+          </div>
+        </div>
+        <div class="free-product-list" v-show="indexs == orgIndex" v-for="(items,indexs) in orgProList">
           <div class="fpl-list">
             <ul>
               <li @click="openProductDetail(item)" v-for="item in items.productList">
@@ -147,28 +198,11 @@
                   </div>
                   <span>{{item.purchaseNum}}人已报名</span>
                 </div>
-                <div class="share-can-get linear-btn">
-                  推广赚￥{{item.commissionRebate}}
-                </div>
+<!--                <div class="share-can-get linear-btn">-->
+<!--                  推广赚￥{{item.commissionRebate}}-->
+<!--                </div>-->
               </li>
-              <li >
-                <div class="fpl-cover">
-                  <img src="../assets/img/videotbg.png" alt="">
-                </div>
-                <div style="padding: 20px">
-                  <div class="fpl-title">
-                    2021中财财经大学MBA项目宣2021中财财经大学MBA项目宣......
-                  </div>
-                  <span class="fpl-livetime"> 直播时间：4月16日 19:30-20:30</span>
-                </div>
-
-                <div class="fpl-price">
-                  <div class="commise-fpl">
-                    售价￥450
-                  </div>
-                  <span>15456人已报名</span>
-                </div>
-              </li>
+              <li style="background: none"></li>
             </ul>
           </div>
           <div class="share-list">
@@ -203,19 +237,19 @@
       </div>
     </div>
     <!--课程列表-->
-    <div class="five-subject">
+    <div class="five-subject" v-if="goodsList.length > 0">
       <!--大咖好课-->
       <div id="ir1" class="pc-center">
         <div class="indexscan-box index-goodpro indexfree-list">
           <div>
             大咖好课 <span class="title-ps">不可错过的精品好课</span>
           </div>
-          <span @click="openGroup()">MORE >></span>
+          <span @click="openMore()">MORE >></span>
         </div>
         <div class="free-product-list">
           <div class="fpl-list">
             <ul>
-              <li @click="openProductDetail(item)" v-for="item in goodsList">
+              <li @click="openProductDetail(item)" v-if="index < 3" v-for="(item,index) in goodsList">
                 <div class="fpl-cover">
                   <img :src="item.imageUrl" alt="">
                 </div>
@@ -231,9 +265,9 @@
                   </div>
                   <span>{{item.purchaseNum}}人已报名</span>
                 </div>
-                <div class="share-can-get linear-btn">
-                  推广赚￥{{item.commissionRebate}}
-                </div>
+<!--                <div class="share-can-get linear-btn">-->
+<!--                  推广赚￥{{item.commissionRebate}}-->
+<!--                </div>-->
               </li>
             </ul>
           </div>
@@ -269,13 +303,13 @@
       </div>
     </div>
     <!--限时好课-->
-    <div style="background: #fff;padding-bottom: 30px;">
+    <div style="background: #fff;padding-bottom: 30px;" v-if="timeProList.length > 0">
       <div id="ir3" class="pc-center">
         <div class="indexscan-box index-timec index-goodpro ">
           <div>
             限时折扣 <span class="title-ps">诸多好课让利60%起！</span>
           </div>
-          <span @click="openGroup()">MORE >></span>
+          <span @click="openMore()">MORE >></span>
         </div>
         <div class="free-product-list">
           <div class="fpl-list" style="width: 100%;">
@@ -296,9 +330,9 @@
                   </div>
                   <span>{{item.purchaseNum}}人已报名</span>
                 </div>
-                <div class="share-can-get linear-btn">
-                  推广赚￥{{item.commissionRebate}}
-                </div>
+<!--                <div class="share-can-get linear-btn">-->
+<!--                  推广赚￥{{item.commissionRebate}}-->
+<!--                </div>-->
               </li>
               <li class="time-c" style="display: none" >
                 <div class="fpl-cover">
@@ -324,7 +358,6 @@
       </div>
     </div>
     <div style="height: 50px;"></div>
-    <tryvideos ref="seevideos" :visible.sync="videoFlag"></tryvideos>
   </div>
 </template>
 <script>
@@ -365,7 +398,10 @@
         orgList:[], //已入驻机构
         orgProList:[], // 机构产品
         userphone:'',
-        userHead:''
+        userHead:'https://www.zz1819.com/bg/personhead.png',
+        sortList:[],
+        newList:[],
+        orgIndex:0,
       }
     },
     mounted(){},
@@ -375,16 +411,45 @@
       tryvideos
     },
     created(){
-      var str = this.$store.state.user.user.userPhone.toString();
-      this.userphone = str[0]+str[1]+str[2]+"****"+str[7]+str[8]+str[9]+str[10]
-      this.userHead = this.$store.state.user.user.imageUrl;
+      if(this.$store.state.user.user.userPhone){
+        var str = this.$store.state.user.user.userPhone.toString();
+        this.userphone = str[0]+str[1]+str[2]+"****"+str[7]+str[8]+str[9]+str[10]
+        this.userHead = this.$store.state.user.user.imageUrl;
+      }
 
       this.$emit('header_two',false);
       this.$emit('header',true);
       this.initPageData();
       this.getMonthAndWeekList(1);
+      this.getSortList();
+      this.getNews();
     },
     methods:{
+
+      //选择三级跳页
+      searchResultBySort(data){
+        this.openNewPage('/pages/search',{sortId:data.sid,twoSortId:data.id})
+      },
+      //跳转公告详情页面
+      openNewsDetail(data){
+        this.openNewPage('/pages/newsdetail',{id:data.newId})
+      },
+      //选择分类
+      chooseTwoLevel(data,index,indexs){
+        this.sortList[index].index = indexs;
+      },
+      //获取类型列表
+      getSortList(){
+        this.http.post('/dir/queryProductSort', {}).then(res => {
+          if (res.code == 0) {
+            for(var i=0;i<res.data.length;i++){
+              res.data[i].index = 0;
+            }
+            this.sortList = res.data;
+          }
+        })
+      },
+      //退出登录
       loginOut(){
         localStorage.removeItem('diruserinfo')
         this.stoast('已退出')
@@ -392,6 +457,14 @@
           this.$router.push('/');
           location.reload()
         },1000)
+      },
+      //获取公告
+      getNews(t){
+        this.http.post('/dir/new/queryNewList',{pageNum:1,pageSize:5}).then(res=>{
+          if(res.code == 0){
+            this.newList = res.data.list;
+          }
+        });
       },
       //获取大咖好课列表 周榜 越帮
       getMonthAndWeekList(t){
@@ -408,6 +481,12 @@
       },
       //初始化页面数据
       initPageData(){
+        //轮播图
+        this.http.post('/dir/queryPcCycleImagePageList',{}).then(res=>{
+          if(res.code == 0){
+            this.bannerList = res.data.list;
+          }
+        });
         //机构列表
         this.http.post('/dir/queryDirOrgInfoList',{pageNum:1,pageSize:8}).then(res=>{
           if(res.code == 0){
@@ -428,7 +507,7 @@
               res.data[i].flag = false;
             }
             this.orgProList = res.data;
-            this.getProListByOgrId(0)
+            this.getProListByOgrId(0,true)
           }
         });
         //大咖好课
@@ -452,85 +531,27 @@
               this.orgProList[index].rankList = res.data.list;
               this.$set(this.orgProList,index,this.orgProList[index])
               if(isFor){
-                this.getProListByOgrId(index+1)
+                this.getProListByOgrId(index+1,isFor)
               }
             }
           });
         }
-
-      },
-      //试听课时
-      tryVideos(data){
-        this.$refs.seevideos.$emit('seeVideosByComments',data)
-      },
-
-      //锚点事件
-      goToAnchor(data){
-        this.activeAnchor = data.text;
-        document.querySelector("#"+data.id).scrollIntoView(true);
       },
       openOrgDetail(data){
         this.openNewPage('/pages/orgdetail',{orgId:data.id})
       },
-      chooseThisWordSearch(w){
-        if(!w){
-          this.toast('请输入关键字后查询')
-          return;
-        }
-        this.openNewPage('/pages/search',{word:w})
-      },
-      //分类的class
-      gernerateClass(index){
-        return 'item-list-'+(dir_index+1);
-      },
-      //打开详细详情
-      openNewsDetail(data){
-        this.$router.push({path:'/pages/newsdetail',query:{id:data.messageId}})
-      },
-
       //点击轮播图事件
       openBannerDetail(data){
         window.location.href = data.cycleValue;
-
       },
       //打开产品详情页
       openProductDetail(data){
         this.openProductDetailByType(data)
       },
-      //打开优惠可列表
-      openGroup(){
-        this.openNewPage('/pages/group',{});
+      openMore(){
+        this.openNewPage('/pages/search',{})
       },
-      openIndex(){
-        this.$router.push('/')
-      },
-      openOrganDetail(id){
-        let routeUrl = this.$router.resolve({
-          path: "/pages/organ_detail",
-          query: {id:id}
-        });
-        window.open(routeUrl .href, '_blank');
-      },
-      openProduct(type){
-        if(type){
-          this.$router.push({path:'/pages/product',query:{producttype:type}})
-        }else{
-          this.$router.push('/pages/product')
-        }
-      },
-      openDetail(data){
-//        console.log(data)
-        this.openProductDetailByType(data)
-      },
-      openProductIndex(){
-        this.$router.push('/pages/product')
-      },
-      openProductByOneLevelId(data){
-        this.$router.push({path:'/pages/product',query:{oid:data.id}})
-      },
-      openShareget(){
-        this.openNewPage("/pages/shareget",{})
-      },
+
       openLoginAndSignup(type){
         if(type==1){
           this.$router.push('/pages/login')
@@ -544,8 +565,114 @@
   import '../assets/css/index.css'
 </script>
 <style scope>
+  .join-dis{
+    position: relative;
+  }
+  .join-dis span{
+    display: block;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    left: 0px;
+    top:0px;
+    font-size: 24px;
+    color:#fff;
+    line-height: 92px;
+    text-align: center;
+  }
+  .org-active{
+    background: #ec6941 !important;
+    color:#fff !important;
+
+  }
+  .org-logo-list span{
+    line-height: 45px;
+    padding: 0 30px 0 15px;
+  }
+  .org-logo-list img{
+    width: 55px;
+    height: 41px;
+    margin: 2px;
+  }
+  .org-logo-list div{
+    cursor: pointer;
+    display: flex;
+    justify-content: flex-start;
+    margin-right: 10px;
+    height: 45px;
+    background: #fff;
+    border:1px solid #e5e5e5;
+    font-size: 14px;
+    color:#101010;
+  }
+  .org-logo-list{
+    display: flex;
+    justify-content: flex-start;
+  }
+  .three-level-span:hover{
+    color:#ec6941;
+  }
+  .type-border-bottom{
+    padding-bottom: 25px;
+    border-bottom: 1px dashed #b5b5b5;
+  }
+  .type-small-class span{
+    cursor: pointer;
+    font-size: 14px;
+    color:#939393;
+    display: block;
+    margin-right: 15px;
+    margin-bottom: 10px;
+  }
+  .type-small-class{
+    margin-top: 20px;
+    height: 36px;
+    overflow: hidden;
+    flex-wrap: wrap;
+    display: flex;
+    justify-content: flex-start;
+  }
+  .active-big-class{
+    background: #ec6941 !important;
+    color:#fff !important;
+  }
+  .type-big-class span{
+    font-size: 16px;
+    color:#686868;
+    cursor: pointer;
+    font-weight: bold;
+    padding: 13px 19px;
+    border-radius: 4px;
+    display: block;
+  }
+  .type-big-class{
+    display: flex;
+    justify-content: flex-start;
+    margin-top: 20px;
+  }
+  .type-title span{
+    color:#ec6941;
+    cursor: pointer;
+    font-size: 12px;
+  }
+  .type-title{
+    font-size: 20px;
+    color:#ec6941;
+  }
+  .pro-type-left > div{
+    margin-bottom: 25px;
+  }
+  .pro-type-left{
+    width: 529px;
+    padding: 32px;
+    background: #fff;
+  }
+  .pro-type-box {
+    display: flex;
+    justify-content: space-between;
+  }
   .share-list,.fpl-list{
-    height: 342px !important;
+    height: 342px;
   }
   .store-title-top{
     display: flex;

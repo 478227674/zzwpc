@@ -99,7 +99,7 @@ Common.uploadImg = function (data) {
     var reader = new FileReader();
     reader.readAsDataURL(data.file || data);
     reader.onload = function(){
-      axios.post(configUrl.baseUrl+'/common/upload', qs.stringify({base64:reader.result, fileName:'a.jpg'}), config).then(response => {
+      axios.post(configUrl.baseUrl+'/file/upload', qs.stringify({base64:reader.result, fileName:'a.jpg'}), config).then(response => {
         if(response.data.code == 0){
           resolve(response.data)
           loadingInstance.close()
@@ -159,7 +159,7 @@ Common.wMessage = function (string) {
 //打开详情页 通用 列表用
 Common.openProductDetailByType = function(data){
   let routeUrl;
-  console.log(data)
+  localStorage.setItem('ACTIVE_ORG_ID',data.orgId)
   if(data.imageType==2){
     routeUrl = this.$router.resolve({
       path: "/pages/product_detail",

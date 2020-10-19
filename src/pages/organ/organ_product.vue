@@ -1,119 +1,95 @@
 <template>
   <div class="hello" style="background: #f5f5f5">
-    <div style="background: #fff;">
-      <div class="pc-center od-top">
-        <div class="organ-name-bpoxx">
-          <img :src="orgData.logoUrl" alt="">
-          <div class="organ-name-top">{{orgData.orgName}}
-            <div v-show="orgData.orgTelephone!=0">{{orgData.orgTelephone}}</div>
-            <div v-show="orgData.orgTelephone==0">成为本机构会员可见</div>
-          </div>
+    <orghead></orghead>
+    <div class="pc-center organ-product-list">
+      <div class="organ-product-list-left">
+        <div class="organ-product-list-class">
+          <span :class="{'active-product-list-class':typeIndex == 0}" @click="chooseTypeSearch(0)">最热</span>
+          <span :class="{'active-product-list-class':typeIndex == 1}" @click="chooseTypeSearch(1)">直播</span>
+          <span :class="{'active-product-list-class':typeIndex == 2}" @click="chooseTypeSearch(2)">拼团</span>
+          <span :class="{'active-product-list-class':typeIndex == 3}" @click="chooseTypeSearch(3)">砍价</span>
+          <span :class="{'active-product-list-class':typeIndex == 4}" @click="chooseTypeSearch(4)">兑换课</span>
         </div>
-        <div class="od-intro">{{orgData.orgIntro}}</div>
-      </div>
-
-
-    </div>
-    <div style="background: #ff7f00">
-      <div class="od-tab pc-center">
-        <ul>
-          <li @click="openOrganDetail">
-            首页
-          </li>
-          <li class="organ_active" @click="openOrganProduct">
-            课程
-          </li>
-          <li @click="openOrganSchool">
-            校区
-          </li>
-          <li @click="openOrganComments">
-            评价
-          </li>
-          <li  @click="openOrganPresent">
-            机构简介
-          </li>
-        </ul>
-      </div>
-    </div>
-    <div v-show="orgData.imageList.length>=3" class="pc-center" style="margin-top: 20px;display: flex;justify-content: space-between">
-      <img v-show="index<3" v-for="(item,index) in orgData.imageList" :src="item.attachment.fileUrl" style="width:30%;" alt="">
-    </div>
-    <!--热门课程-->
-    <div class="pc-center organ-allbox">
-      <div class="organ-left">
-        <div class="special-class">
-          <span>热门课程</span>
-        </div>
-        <div >
-          <ul class="list-list">
-            <li v-for="item in productList" @click="openProductDetail(item)">
-              <div class="organ-logo"  :style="{backgroundImage: 'url(' + item.imageUrl + ')'}">
-              </div>
-              <div class="organ-detail">
-                <div class="organ-title">{{item.productName}}</div>
-                <div class="organ-products">{{item.className}}</div>
-                <div class="activename">
-                  <span v-show="item.isCut==1">邀请砍价</span>
-                  <span v-show="item.isGroup==1">拼团优惠</span>
-                  <span v-show="item.isCommission==1">邀请返佣</span>
-                </div>
-                <div class="organ-num">
-                  <div>
-                    ￥<span>{{item.productPrice}}</span>
+        <div>
+          <div class="free-product-list">
+            <div class="fpl-list" style="width: 100%;height:auto">
+              <ul>
+                <li class="time-c" @click="openProductDetail(item)" v-for="item in productList">
+                  <div class="fpl-cover">
+                    <img :src="item.imageUrl" alt="">
                   </div>
-                  <p>
-                    报名 <span>{{item.purchaseNum}}</span>人
-                  </p>
-                </div>
+                  <div style="padding: 20px">
+                    <div class="fpl-title">
+                      {{item.productName}}
+                    </div>
+                    <span class="fpl-livetime"> {{item.productIntro}}</span>
+                  </div>
+
+                  <div class="fpl-price">
+                    <div class="commise-fpl">
+                      售价:￥{{item.productPrice}}
+                    </div>
+                    <span>{{item.purchaseNum}}人已报名</span>
+                  </div>
+                  <div class="share-can-get linear-gray-btn">
+                    推广赚￥{{item.commissionRebate || 0}}
+                  </div>
+                </li>
+                <li style="background: none"></li>
+                <li style="background: none"></li>
+                <li class="time-c" style="display: none">
+                  <div class="fpl-cover">
+                    <img src="../../assets/img/videotbg.png" alt="">
+                  </div>
+                  <div style="padding: 20px">
+                    <div class="fpl-title">
+                      2021中财财经大学MBA项目宣2021中财财经大学MBA项目宣......
+                    </div>
+                    <span class="fpl-livetime"> 直播时间：4月16日 19:30-20:30</span>
+                  </div>
+
+                  <div class="fpl-price">
+                    <div class="commise-fpl">
+                      售价:￥111
+                    </div>
+                    <span>222人已报名</span>
+                  </div>
+                  <div class="share-can-get linear-gray-btn">
+                    推广赚￥69.3
+                  </div>
+                </li>
+              </ul>
+              <div class="block">
+                <el-pagination
+                  background
+                  @current-change="handleCurrentChange"
+                  :current-page="pagenum"
+                  :page-size="pagesize"
+                  layout="prev, pager, next"
+                  :total="total">
+                </el-pagination>
               </div>
-            </li>
-          </ul>
-          <div class="block">
-            <el-pagination
-              background
-              @current-change="handleCurrentChange"
-              :current-page="pagenum"
-              :page-size="pagesize"
-              layout="prev, pager, next"
-              :total="total">
-            </el-pagination>
+            </div>
           </div>
         </div>
+
       </div>
-      <div style="width:260px;">
-        <div class="pc-product-list-bot">
-          <div>选择太奇建工AI</div>
-          <span class="pc-line"></span>
-          <ul>
-            <li>
-              <img src="../../assets/img/c1.png" alt="">
+      <div class="organ-product-list-right">
+        <div class="right-title">热门课程</div>
+        <div class="right-list">
+          <div class="right-list-item" @click="openProductDetail(item)" v-for="item in hotClass">
+            <div class="right-item-cover">
+              <img :src="item.imageUrl" alt="">
+            </div>
+            <div class="right-detail">
+              <p>{{item.productName}}</p>
+              <span>{{item.productIntro}}</span>
               <div>
-                <p>行业平台</p>
-                <span>有20年的互联网+教育经验， 懂学生需要什么。</span>
+                <a href="javascript:;">￥{{item.productPrice}}</a>
+                <span>{{item.purchaseNum}}人已报名</span>
               </div>
-            </li>
-            <li>
-              <img src="../../assets/img/c2.png" alt="">
-              <div>
-                <p>教育资源丰富</p>
-                <span>覆盖全国上百个城市多家品牌 机构，老师好，学校多，课程多。</span>
-              </div>
-            </li>
-            <li>
-              <img src="../../assets/img/c4.png" alt="">
-              <div>
-                <p>专业平台顾问</p>
-                <span>百余名资深教育顾问，站在 第三方的角度，快速为您定 制一对一的个性化解决方案。</span>
-              </div>
-            </li>
-            <li>
-              <img src="../../assets/img/c1.png" alt="">
-              <div>
-                <p>行业平台</p>
-                <span>有20年的互联网+教育经验， 懂学生需要什么。</span>
-              </div>
-            </li>
-          </ul>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -121,84 +97,79 @@
 
 </template>
 <script>
-  import { slider, slideritem } from 'vue-concise-slider'
+  import orghead from '../../components/orghead'
+
   export default {
     name: 'HelloWorld',
     data () {
       return {
-        pagenum:1,
-        total:0,
-        pagesize:5,
-        productList:[],
-        value5:5,
-        orgId:null,
-        orgData:{},
-
+        productList: [],
+        total: 0,
+        pagenum: 1,
+        pagesize: 9,
+        requestUrl:'/dir/queryProductListRedu',
+        urlList:[
+          '/dir/queryProductListRedu',
+          '/dir/queryProductListZhibo',
+          '/dir/queryProductListPintuan',
+          '/dir/queryProductListKanjia',
+          '/dir/queryProductListDuihuan',
+        ],
+        typeIndex:0,
+        hotClass:[],
       }
     },
     components:{
-      slider,
-      slideritem
+      orghead
     },
     created(){
-      this.orgId = this.$route.query.id;
-      this.getOrgAllProduct();
-      this.getOrganDetail();
-      this.$emit('header_two',true);
+      this.orgId = this.$store.state.user.activeOrgId;
+      this.$emit('header', false)
+      this.getProductListByType();
+      this.getHotClass();
     },
     methods:{
-      getOrgAllProduct(){
-        this.http.post('/product/queryAllProductList',{orgId:this.orgId,pagenum:this.pagenum,pagesize:5}).then(res=>{
+      //获取机构热门课程
+      getHotClass(){
+        this.http.post('/dir/queryDirProductRecomByOrgId',{orgId:this.orgId,pageSize:6,pageNum:1}).then(res=>{
           if(res.code == 0){
-            this.total = res.data.total;
+            this.hotClass = res.data.list;
+          }
+        })
+      },
+      //选择类型筛选
+      chooseTypeSearch(t){
+        this.typeIndex = t;
+        this.requestUrl = this.urlList[t]; //切换请求路径
+        this.pagenum = 1;
+        this.getProductListByType();
+      },
+      //打开课程详情
+      openProductDetail(data) {
+        this.openProductDetailByType(data)
+      },
+      //筛选课程列表
+      getProductListByType() {
+        var obj = {
+          pageNum: this.pagenum,
+          pageSize: this.pagesize,
+          orgId: this.orgId,
+        };
+        this.http.post(this.requestUrl, obj).then(res => {
+          if (res.code == 0) {
             this.productList = res.data.list;
+            this.total = res.data.total
+            if (res.data.list.length == 0 && this.pagenum == 1) {
+              this.stoast('暂时没有查到更多数据')
+              this.productList = []
+            }
           }
         })
       },
-      getOrganDetail(){
-        this.http.post('/org/queryOrgInfo',{orgId:this.orgId}).then(res=>{
-          if(res.code == 0){
-            this.orgData = res.data;
-            this.imageList = res.data.imageList;
-          }
-        })
-      },
-      openProductDetail(data){
-          this.openProductDetailByType(data)
-//        if(data.imageType==2){
-//          this.$router.push({path:'/pages/product_detail',query:{id:data.productId}})
-//        }else if(data.imageType == 4){
-//          if(data.isCut == 1 && data.isGroup == 0){
-//            this.$router.push({path:'/pages/productcut_detail',query:{id:data.productId}})
-//          }else if(data.isGroup == 1 || (data.isGroup == 1 && data.isCut == 1)){
-//            this.$router.push({path:'/pages/productgroup_detail',query:{id:data.productId}})
-//          }
-//        }else if(data.imageType == 5){ //特价
-//          this.$router.push({path:'/pages/productspe_detail',query:{id:data.productId}})
-//        }
-      },
-      handleCurrentChange(v){
-          this.pagenum = v;
-          this.getOrgAllProduct();
-      },
-
-      openIndex(){
-        this.$router.push('/')
-      },
-      openOrganDetail(){
-        this.$router.push({path:'/pages/organ_detail',query:{id:this.orgId}})
-      },
-      openOrganProduct(){
-        this.$router.push({path:'/pages/organ_product',query:{id:this.orgId}})
-      },
-      openOrganSchool(){
-        this.$router.push({path:'/pages/organ_school',query:{id:this.orgId}})
-      },
-      openOrganComments(){
-        this.$router.push({path:'/pages/organ_comment',query:{id:this.orgId}})
-      },
-      openOrganPresent(){
-        this.$router.push({path:'/pages/organ_present',query:{id:this.orgId}})
+      //切换页码课程
+      handleCurrentChange(val) {
+        this.pagenum = val;
+        this.getProductListByType();
       },
     },
   }
@@ -208,13 +179,7 @@
   import '../../assets/css/organ.css'
 </script>
 <style scoped>
-  .organ-num{
-    width:100% !important;
-  }
-  .organ-detail {
-    width: 730px;
-  }
-  .organ-num div{
-    color:#f7260a !important;
+  .fpl-list > ul li{
+    margin-bottom: 10px;
   }
 </style>

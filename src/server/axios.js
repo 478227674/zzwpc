@@ -5,6 +5,7 @@ import configUrl from '../config';
 import { Message } from 'element-ui';  //element库的消息提示，可以不用
 var token = localStorage.getItem('diruserinfo') ? JSON.parse(localStorage.getItem('diruserinfo')).token : '';
 var service;
+var requestFlag = true;
 //创建axios实例
 service = axios.create({
   baseURL: configUrl.baseUrl,
@@ -60,6 +61,9 @@ export default {
     if(!params.orgId){
       params.orgId = localStorage.getItem('orgId') || null;
     }
+    params.aid = null;
+    params.pid = localStorage.getItem('PROVINCE_ID') || null;
+    params.cid = localStorage.getItem('CITY_ID') || null;
     // params.orgId =  JSON.parse(localStorage.getItem('diruserinfo')).orgId;
     // params.token = store.state.user.user.token;
     return new Promise((resolve, reject) =>{
@@ -74,20 +78,24 @@ export default {
       }).then(res => {
         if(res.data.code == 1){
           if(res.data.msg == 401){
-            Message({
-              showClose: true,
-              message: '登录超时，请重新登录',
-              type: 'error'
-            });
-            localStorage.clear('diruserinfo')
-            setTimeout(function () {
-              router.push('/pages/login')
+            if(requestFlag){
+              Message({
+                showClose: true,
+                message: '登录超时，请重新登录',
+                type: 'error'
+              });
+              localStorage.clear('diruserinfo')
+              setTimeout(function () {
+                router.push('/pages/login')
+                return;
+                // location.reload();
+                // console.log()
+              },2000)
+              requestFlag = true;
               return;
-              // location.reload();
-              // console.log()
-            },2000)
+            }
+
           }else{
-            console.log(url)
             Message({
               showClose: true,
               message: res.data.msg,
@@ -110,11 +118,18 @@ export default {
         console.log(err)
         if (!err.response) {
           //Message是element库的组件，可以去掉
-          Message({
-            showClose: true,
-            message: '请求错误',
-            type: 'error'
-          });
+          if(requestFlag){
+            requestFlag = false;
+            Message({
+              showClose: true,
+              message: '请求错误',
+              type: 'error'
+            });
+
+            return;
+
+          }
+
         } else {
           reject(err.response);
         }

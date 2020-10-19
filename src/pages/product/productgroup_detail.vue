@@ -1,6 +1,11 @@
 <template>
   <div class="hello" style="background: #e7e8ec">
+    <orghead></orghead>
     <div class="pro-banner">
+      <div class="web-positon">
+        <img src="../../assets/img/product/productpositionicon.png" alt="">
+        <span>课程 > {{pobj.productName}}</span>
+      </div>
       <img src="../../assets/img/zzw/probanner.png" alt="">
     </div>
     <div class="pro-detail-all">
@@ -24,7 +29,7 @@
             <li v-show="productDetail.isCoin==1">
               <div class="product-d-lt">课程优惠:</div>
               <div class="product-d-lr">
-                本课程可使用太奇币抵扣{{productDetail.coinLimit/1000}}元
+                本课程可使用元儒币抵扣{{productDetail.coinLimit/1000}}元
               </div>
             </li>
             <li>
@@ -64,38 +69,27 @@
               </li>
             </ul>
           </div>
-          <!--可拼可砍-->
-          <div class="groups-box" v-show="productDetail.isGroup==1 && productDetail.isCut==1">
-            <ul>
-              <li v-for="item in groupsArr" :class="{'groups-active':item.groupId == groupId}"
-                  @click="chooseThisGroup(item)">
-                <span>{{item.groupSumNum}}人团</span>
-                <div>￥{{item.groupPrice}} <s>￥{{pobj.productPrice}}</s></div>
-                <p>{{item.d}}天{{item.h}}小时{{item.m}}分{{item.s}}秒</p>
-                <a href="javascript:;" style="color:#f7260a;font-size: 16px">可砍去￥{{item.cutFloorPrice}}</a>
-              </li>
-            </ul>
-          </div>
+
           <div class="organ-btns">
-            <div class="test-linten" @click="buyNow" v-show="productDetail.isCut==1">砍价报名</div>
             <div class="test-linten" @click="buyNow" v-show="productDetail.isCut==0">拼团报名</div>
             <div class="test-linten" @click="buyNowByAllPrice">原价报名</div>
-            <div class="share-money" @click="collectThisProduct">收藏课程</div>
-            <span class="sharegeticon" @click="getQrcode">
-            分享有礼
-            <div id="qrcode" class="qrcode"></div>
-            <div id="shareurlbox" @click.stop=""
-                 style="display:none;position: absolute;top:20px;text-align: center;left: -180px">
-              <input v-model="shareUrl" readonly="readonly" type="text">
-              <a href="javascript:;" @click="copyUrl">复制</a>
+          </div>
+          <!--左上角图标-->
+          <div class="pro-handler">
+            <div>
+              <img  @click="getQrcode" src="../../assets/img/shareicon.png" alt="">
+              <div id="qrcodepro">
+              </div>
             </div>
-          </span>
+            <div>
+              <img @click="collectThisProduct" src="../../assets/img/zzw/collectpro.png" alt="">
+            </div>
           </div>
         </div>
       </div>
-      <div class="product-ps">
-        <span>!</span>提供服务： 免费问答、资料下载、学习进度追踪、课程免费一年等
-      </div>
+<!--      <div class="product-ps">-->
+<!--        <span>!</span>提供服务： 免费问答、资料下载、学习进度追踪、课程免费一年等-->
+<!--      </div>-->
       <div class="pro-detail-bottom">
         <div class="product-allbox">
           <div class="product-detail-left">
@@ -167,7 +161,7 @@
                     <div class="hot-class-price">
                       <div>
                         ￥{{item.productPrice}}
-                        <span>返佣￥{{item.commissionRebate}}</span>
+<!--                        <span>返佣￥{{item.commissionRebate}}</span>-->
                       </div>
                       <p>{{item.purchaseNum}}已报名</p>
                     </div>
@@ -209,6 +203,8 @@
   import QRCode from "qrcodejs2"; //引入生成二维码插件
   import config from "../../config"; //引入生成二维码插件
   import tryvideos from "../../components/videos/tryvideos";
+  import orghead from "../../components/orghead";
+
 
   import {slider, slideritem} from 'vue-concise-slider'
 
@@ -261,7 +257,9 @@
         imageList: [],
         productId: null,
         orgId: null,
-        pobj: {},
+        pobj: {
+          orgInfo:{}
+        },
         productDetail: {},
         guigeObj: {},
         groupsArr: [],
@@ -281,12 +279,13 @@
     components: {
       slider,
       slideritem,
-      tryvideos
+      tryvideos,
+      orghead
     },
     created() {
       this.productId = this.$route.query.id;
       this.getProductDetai();
-      this.$emit('header_two', true);
+      this.$emit('header', false);
     },
     methods: {
       openOrgDetail(data){
@@ -340,20 +339,16 @@
           return;
         }
         var user = JSON.parse(localStorage.getItem('diruserinfo'))
-        this.shareUrl = config.wxUrl + 'productgroup_detail.html?id=' + this.productId + '&inviteCode=' + user.inviteCode + '&'
-        if (document.getElementById('qrcode').innerHTML) {
-          document.getElementById('qrcode').innerHTML = "";
-          document.getElementById('shareurlbox').style.display = "none";
-
-        } else {
-          document.getElementById('qrcode').style.display = "block";
-          document.getElementById('shareurlbox').style.display = "block";
-          let qrcode = new QRCode('qrcode', {
-            width: '100',
+        this.shareUrl = config.wxUrl + 'productgroup_detail.html?id=' + this.productId + '&uid=' + user.userId;
+        if(document.getElementById('qrcodepro').innerHTML){
+          document.getElementById('qrcodepro').innerHTML = "";
+        }else{
+          let qrcode = new QRCode('qrcodepro', {
+            width:'100',
             height: '100',
-            text: this.shareUrl, // 二维码地址
-            colorDark: "#000",
-            colorLight: "#FFF",
+            text:this.shareUrl, // 二维码地址
+            colorDark : "#000",
+            colorLight : "#FFF",
           })
         }
 
@@ -448,9 +443,7 @@
               type: 'warning'
             }).then(() => {
               this.$router.push('/pages/mainclass')
-
             }).catch(() => {
-
             });
           }
 

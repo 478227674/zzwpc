@@ -1,87 +1,141 @@
-.coupon-detail p {
-  color:#333;
-  margin-top: 30px;
-  font-size: 18px;
+.coupon-checked .coupon-items{
+  box-sizing: border-box;
+  border:1px solid #e94f5b !important;
 }
-.coupon-detail span{
-  color:#999;margin-top: 15px;
-  font-size: 15px;
-  display: block;
-}
-.coupon-detail{
-  width:60%;
-  margin-left: 4%;
-}
-.withamount{
-  font-size: 14px !important;display: block;position:absolute;
-  line-height:20px;
-  width:100%;
-  text-align: center;
-  top:30px;
-}
-.coupon-num{
-  position: relative;
-  text-align: center;
-  line-height: 140px;
-  width:25%;
-  color:#fff;font-size: 12px;
-}
-.coupon-num span{
-  font-size: 30px;
-}
-.coupon-list-ul{
-  display: flex;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  margin-top: 20px;
-}
-.coupon-used{
-  cursor: pointer;
-  margin-bottom: 20px;
-  display: flex;
-  justify-content: flex-start;
-  height:110px;
-  width:465px;
-  background: url("../img/coupon-used1.png") no-repeat 0px 0px;
+.coupon-checked .coupon-check{
+  background: url("../img/zzw/coupon-checked.png") no-repeat 0px 0px !important;
   background-size: 100% 100%;
+}
+.coupon-check{
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background-color: #e5e5e5;
+  margin:30px 0px 0px 30px;
+}
+.coupon-btn{
+  margin-top: 30px;
+  margin-left: 15px;
+  cursor: pointer;
+  padding: 3px 11px;
+  color:#fff;
+  font-size: 12px;
+  background: #ff374c;
+  border-radius: 10px;
+  height: 16px;
 }
 .coupon-canuse{
+  line-height: 30px;
+  font-size: 20px;
+  color:#656565;
+}
+.coupon-items-all{
+  margin-right: 30px;
   cursor: pointer;
-  margin-bottom: 20px;
+  display: flex;
+  justify-content: flex-start;    width:480px;
+}
+.coupon-desc-title span{
+  display: block;
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  background: #ff374c;
+  font-size: 14px;
+  line-height: 25px;
+  color:#fff;
+  text-align: center;
+}
+.coupon-desc-title{
+  line-height: 25px;
   display: flex;
   justify-content: flex-start;
-  height:110px;
-  width:465px;
-  background: url("../img/coupon-canuse.png") no-repeat 0px 0px;
+  font-size: 22px;font-weight: bold;
+  color:#ff374c;
+}
+.coupon-desc{
+  margin-left: 10px;
+  margin-top: 15px;
+}
+.coupon-num span{
+  font-size: 18px;
+  font-weight: bold;
+}
+.coupon-num{
+  display: flex;
+  justify-content: flex-start;
+  margin-left: 20px;
+  line-height: 84px;
+  font-size: 40px;
+  font-weight: bold;
+  color:#ff374c;
+}
+.coupon-time {
+  position: absolute;
+  bottom:3px;
+  left: 20px;
+  color:#919191;
+  font-size: 12px;
+}
+.coupon-bgbox{
+  display: flex;
+  position: relative;
+  justify-content: flex-start;
+  height: 84px;
+  width: 96%;
+  margin: 3px auto;
+
+  background: url("../img/zzw/coupon-bg.png") no-repeat 0px 0px;
   background-size: 100% 100%;
 }
-.active-tab-cou{
-
-  background: #f73e3c;color:#fff !important;
-  border-radius: 5px;
+.coupon-items{
+  height: 90px;
+  background:#eeeeee;
+  width: 430px;
 }
-.coupon-tab span{
-  display: block;
-  cursor: pointer;
-  height:35px;text-align: center;
-  width:90px;
-  line-height:35px;
-  color:#f73e3c;
-
-}
-.coupon-tab{
-  margin-top: 20px;
-  border:1px solid #f73e3c;
-  border-radius: 5px;
+.coupon-list-box{
   display: flex;
   justify-content: flex-start;
-  width:180px;
+  flex-wrap:wrap;
 }
-.person-history{
+.coupon-list {
+  background: none !important;
+  margin: 10px 0;
+  padding-left: 15px;
   background: #fff;
-  padding: 20px;
-  /*width:960px;*/
 }
-.main-system-title{
-  font-size: 18px;color:#f73e3c;
+.translate-img {
+  transform: rotate(0) !important;
+}
+
+.coupon-box-title img {
+  margin-left: 5px;
+  width: 20px;
+  height: 14px;
+  margin-top: 20px;
+  transform: rotate(-90deg);
+}
+
+.coupon-box-title {
+  display: flex;
+  cursor: pointer;
+  justify-content: flex-start;
+}
+
+.coupon-box > p {
+  color: #f01818;
+  font-size: 14px;
+}
+
+.coupon-box {
+  display: flex;
+  justify-content: space-between;
+  background: #f1f4f7;
+  margin-bottom: 10px;
+  color: #1b1b1b;
+  padding: 0 30px;
+  -webkit-box-pack: justify;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+  line-height: 55px;
 }

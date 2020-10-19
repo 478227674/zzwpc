@@ -17,7 +17,7 @@ if(process.env.NODE_ENV == 'production'){  //生产环境
   // url.videoUrl = 'http://appx.tqmba.com.cn/mba/';
   // url.baseUrl = 'http://appx.tqmba.com.cn/tqshoop/app';//测试
   // url.baseUrl = 'http://wk.xhcedu.com/tqshoop/app';//正式
-  url.wxUrl = 'http://appx.tqmba.com.cn/h5/html/';
+  url.wxUrl = 'https://www.zz1819.com/h5/html/';
   // url.baseUrl = 'http://wk.xhcedu.com/tqshoop/app'
 }
 url.install = (Vue) => {

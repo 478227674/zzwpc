@@ -7,7 +7,7 @@
         <div class="person-top">
           <div class="person_detail">
             <div class="person-image">
-              <img :src="myobj.imageUrl" alt="">
+              <img :src="myobj.imageUrl || 'https://www.zz1819.com/bg/personhead.png'" alt="">
               <div>
                 <p>{{myobj.userPhone}}</p>
                 <div v-show="myobj.isCommission==1">
@@ -37,7 +37,7 @@
             <div @click="openMyZzwMoney(1)">
               <img src="../../assets/img/zzb.png" alt="">
               <div>
-                <p>我的太奇币</p>
+                <p>我的元儒币</p>
                 <span>{{coinNum}}</span>
               </div>
             </div>
@@ -135,6 +135,7 @@
       this.http.post('/user/queryUserInfo',{}).then(res=>{
         if(res.code == 0){
           this.myobj = res.data;
+
           this.coinNum = res.data.appCoin.coinNum;
           this.money = res.data.appCommission.commissionTotalAmount || 0;
         }

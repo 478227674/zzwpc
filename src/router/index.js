@@ -24,73 +24,62 @@ export default new Router({
       component: resolve => require(['@/pages/storedir_index'], resolve),
       name: 'storedir_index'
     },
-    {
-      path: '/pages/targettingindex',
-      component: resolve => require(['@/pages/targetting/targettingindex'], resolve),
-      name: 'targettingindex'
-    },
-    {
-      path: '/pages/ptp',
-      component: resolve => require(['@/pages/productlist/ptp'], resolve),
-      name: 'ptp'
-    },
-    {
-      path: '/pages/aboutus',
-      component: resolve => require(['@/pages/aboutus/aboutus'], resolve),
-      name: 'aboutus'
-    },
-    {
-      path: '/pages/right',
-      component: resolve => require(['@/pages/aboutus/right'], resolve),
-      name: 'right'
-    },
-    {
-      path: '/pages/law',
-      component: resolve => require(['@/pages/aboutus/law'], resolve),
-      name: 'law'
-    },
-    {
-      path: '/pages/secret',
-      component: resolve => require(['@/pages/aboutus/secret'], resolve),
-      name: 'secret'
-    },
-    {
-      path: '/pages/live',
-      component: resolve => require(['@/pages/productlist/live'], resolve),
-      name: 'live'
-    },
-    {
-      path: '/pages/orgdetail',
-      component: resolve => require(['@/pages/productlist/orgdetail'], resolve),
-      name: 'orgdetail'
-    },
 
     {
-      path: '/pages/specail',
-      component: resolve => require(['@/pages/productlist/specail'], resolve),
-      name: 'specail'
+      path: '/pages/orgdetail',
+      component: resolve => require(['@/pages/organ/orgdetail'], resolve),
+      name: 'orgdetail'
+    },
+    {
+      path: '/pages/organ_aboutus',
+      component: resolve => require(['@/pages/organ/organ_aboutus'], resolve),
+      name: 'organ_aboutus'
+    },
+    {
+      path: '/pages/organ_comment',
+      component: resolve => require(['@/pages/organ/organ_comment'], resolve),
+      name: 'organ_comment'
+    },
+    {
+      path: '/pages/organ_product',
+      component: resolve => require(['@/pages/organ/organ_product'], resolve),
+      name: 'organ_product'
+    },
+    {
+      path: '/pages/organ_school',
+      component: resolve => require(['@/pages/organ/organ_school'], resolve),
+      name: 'organ_school'
+    },
+    {
+      path: '/pages/organ_newsdetail',
+      component: resolve => require(['@/pages/organ/organ_newsdetail'], resolve),
+      name: 'organ_newsdetail'
+    },
+    {
+      path: '/pages/maincoupon',
+      component: resolve => require(['@/pages/main/maincoupon'], resolve),
+      name: 'maincoupon'
+    },
+    {
+      path: '/pages/organ_teachers',
+      component: resolve => require(['@/pages/organ/organ_teachers'], resolve),
+      name: 'organ_teachers'
+    },
+    {
+      path: '/pages/organ_news',
+      component: resolve => require(['@/pages/organ/organ_news'], resolve),
+      name: 'organ_news'
+    },
+    {
+      path: '/pages/safeandques',
+      component: resolve => require(['@/pages/home/safeandques'], resolve),
+      name: 'safeandques'
     },
     {
       path: '/pages/change',
       component: resolve => require(['@/pages/productlist/change'], resolve),
       name: 'change'
     },
-    {
-      path: '/pages/file',
-      component: resolve => require(['@/pages/download/file'], resolve),
-      name: 'file'
-    },
-    {
-      path: '/pages/free',
-      component: resolve => require(['@/pages/productlist/free'], resolve),
-      name: 'free'
-    },
-    {
-      path: '/pages/group',
-      component: resolve => require(['@/pages/productlist/group'], resolve),
-      name: 'group'
-    },
-
     {
       path: '/pages/myproductlist',
       component: resolve => require(['@/pages/myproduct/myproductlist'], resolve),
@@ -260,6 +249,15 @@ export default new Router({
       component: resolve => require(['@/pages/loginbypwd'], resolve),
       name: 'loginbypwd'
     },
-
+    {
+      path: '/pages/aboutus',
+      component: resolve => require(['@/pages/public/aboutus'], resolve),
+      name: 'aboutus'
+    },
+    {
+      path: '/pages/qab',
+      component: resolve => require(['@/pages/public/qab'], resolve),
+      name: 'qab'
+    },
   ]
 })

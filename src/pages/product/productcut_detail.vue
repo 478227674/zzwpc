@@ -1,6 +1,11 @@
 <template>
   <div class="hello" style="background: #e7e8ec">
+    <orghead></orghead>
     <div class="pro-banner">
+      <div class="web-positon">
+        <img src="../../assets/img/product/productpositionicon.png" alt="">
+        <span>课程 > {{pobj.productName}}</span>
+      </div>
       <img src="../../assets/img/zzw/probanner.png" alt="">
     </div>
     <div class="pro-detail-all">
@@ -20,12 +25,6 @@
             {{pobj.productName}}
           </div>
           <ul class="product-d-li">
-            <li v-show="productDetail.isCoin==1">
-              <div class="product-d-lt">课程优惠:</div>
-              <div class="product-d-lr">
-                本课程可使用太奇币抵扣{{productDetail.coinLimit/1000}}元
-              </div>
-            </li>
             <li>
               <div class="product-d-lt ">班&emsp;&emsp;制:</div>
               <div class="product-d-lr guige-box">
@@ -68,22 +67,23 @@
           <div class="organ-btns">
             <div class="test-linten" @click="buyNow">砍价报名</div>
             <div class="test-linten" @click="buyNowByAllPrice">原价购买</div>
-            <div class="share-money" @click="collectThisProduct">收藏课程</div>
-            <span class="sharegeticon" @click="getQrcode">
-            分享有礼
-            <div id="qrcode" class="qrcode"></div>
-            <div id="shareurlbox" @click.stop=""
-                 style="display:none;position: absolute;top:20px;text-align: center;left: -180px">
-              <input v-model="shareUrl" readonly="readonly" type="text">
-              <a href="javascript:;" @click="copyUrl">复制</a>
+          </div>
+          <!--左上角图标-->
+          <div class="pro-handler">
+            <div>
+              <img  @click="getQrcode" src="../../assets/img/shareicon.png" alt="">
+              <div id="qrcodepro">
+              </div>
             </div>
-          </span>
+            <div>
+              <img @click="collectThisProduct" src="../../assets/img/zzw/collectpro.png" alt="">
+            </div>
           </div>
         </div>
       </div>
-      <div class="product-ps">
-        <span>!</span>提供服务： 免费问答、资料下载、学习进度追踪、课程免费一年等
-      </div>
+<!--      <div class="product-ps">-->
+<!--        <span>!</span>提供服务： 免费问答、资料下载、学习进度追踪、课程免费一年等-->
+<!--      </div>-->
       <div class="pro-detail-bottom">
         <div class="product-allbox">
           <div class="product-detail-left">
@@ -133,12 +133,12 @@
                     <span>{{pobj.orgInfo.orgIntro}}</span>
                   </div>
                 </div>
-                <div class="store-in">进入店铺</div>
+                <div class="store-in" @click="openOrgDetail">进入店铺</div>
                 <div style="height: 20px;"></div>
               </div>
             </div>
             <div class="store-hot-class">
-              <div class="hot-title" @click="openOrgDetail">最热课程推荐</div>
+              <div class="hot-title">最热课程推荐</div>
               <div class="hot-class-list">
                 <div @click="openProductDetail(item)" v-for="item in hotClass" class="hot-class-detail">
                   <div class="hot-class-img">
@@ -155,7 +155,7 @@
                     <div class="hot-class-price">
                       <div>
                         ￥{{item.productPrice}}
-                        <span>返佣￥{{item.commissionRebate}}</span>
+<!--                        <span>返佣￥{{item.commissionRebate}}</span>-->
                       </div>
                       <p>{{item.purchaseNum}}已报名</p>
                     </div>
@@ -256,6 +256,7 @@
   import QRCode from "qrcodejs2"; //引入生成二维码插件
   import config from "../../config"; //引入生成二维码插件
   import tryvideos from "../../components/videos/tryvideos";
+  import orghead from "../../components/orghead";
   import {slider, slideritem} from 'vue-concise-slider'
 
   export default {
@@ -330,12 +331,13 @@
     components: {
       slider,
       slideritem,
-      tryvideos
+      tryvideos,
+      orghead
     },
     created() {
       this.productId = this.$route.query.id;
       this.getProductDetai();
-      this.$emit('header_two', true);
+      this.$emit('header', false);
     },
     methods: {
       //试听课程
@@ -389,34 +391,20 @@
           this.$router.push('/pages/login');
           return;
         }
-        this.shareUrl = '';
         var user = JSON.parse(localStorage.getItem('diruserinfo'))
-        this.shareUrl = config.wxUrl + 'productkan_detail.html?id=' + this.productId + '&inviteCode=' + user.inviteCode + '&'
-        if (document.getElementById('qrcode').innerHTML) {
-          document.getElementById('qrcode').innerHTML = "";
-          document.getElementById('shareurlbox').style.display = "none";
-        } else {
-          document.getElementById('qrcode').style.display = "block";
-          document.getElementById('shareurlbox').style.display = "block";
-          let qrcode = new QRCode('qrcode', {
-            width: '100',
+        var shareUrl = config.wxUrl + 'productkan_detail.html?id=' + this.productId + '&uid=' + user.userId;
+        if(document.getElementById('qrcodepro').innerHTML){
+          document.getElementById('qrcodepro').innerHTML = "";
+        }else{
+          let qrcode = new QRCode('qrcodepro', {
+            width:'100',
             height: '100',
-            text: this.shareUrl, // 二维码地址
-            colorDark: "#000",
-            colorLight: "#FFF",
+            text:shareUrl, // 二维码地址
+            colorDark : "#000",
+            colorLight : "#FFF",
           })
         }
 
-      },
-      copyUrl() {
-        var oInput = document.createElement('input');
-        oInput.value = this.shareUrl;
-        document.body.appendChild(oInput);
-        oInput.select(); // 选择对象
-        document.execCommand("Copy"); // 执行浏览器复制命令
-        oInput.className = 'oInput';
-        oInput.style.display = 'none';
-        this.stoast('复制成功');
       },
       goPayNow() {
         this.$router.push({path: '/pages/orderpay', query: {id: this.orderId}})
@@ -515,6 +503,7 @@
       },
       //打开产品详情页
       openProductDetail(data) {
+        this.openProductDetailByType(data)
       },
       chooseThisGuige(data) {
         this.guigeObj = data;

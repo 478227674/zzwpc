@@ -48,14 +48,14 @@
         <div style="color:#eb6100;font-size: 12px;margin-top: 25px;">
           已为你锁定课程席位，请在 15:00 内完成支付即可
         </div>
-<!--        <div class="payBox" style="margin-top: 50px;">-->
-<!--          <div class="pay-detail">-->
-<!--            <div class="real-pay1" style="font-size: 28px;">-->
-<!--              应付金额 <a>￥{{payPrice}}</a>-->
-<!--            </div>-->
-<!--            <p style="float:right" @click="getCode">立即支付</p>-->
-<!--          </div>-->
-<!--        </div>-->
+        <div class="payBox" style="margin-top: 50px;">
+          <div class="pay-detail">
+            <div class="real-pay1" style="font-size: 28px;">
+              应付金额 <a>￥{{payPrice}}</a>
+            </div>
+            <p style="float:right" @click="getCode">立即支付</p>
+          </div>
+        </div>
       </div>
 
     </div>
@@ -91,14 +91,14 @@
       orderIntval:undefined,
       coinNum:0,
       cList:[], //优惠券列表
-      isUseCoin:false, //是否使用太奇币
+      isUseCoin:false, //是否使用币
       orgId:null,
       orgData:{},
       oid:null,
       appOrderCut:{},
       oobj:{},
       payFlag:false,
-      myCoin:0,//我的太奇币
+      myCoin:0,//我的币
       canUse:0,//可用太奇币
       payPrice:0,//实际支付
       couponId:null, //优惠券ID
@@ -153,22 +153,24 @@
         },3000)
     },
     getCode(){
-      this.$nextTick(()=>{
-        document.getElementById('qrcodepay').innerHTML = ''
-        this.http.post('http://wk.xhcedu.com/tqshoop/pc/wx/pay',{orderId:this.oid,coinNum:this.coinNum,couponId:this.couponId}).then(res=>{
+
+        this.http.post('/wx/pay',{orderId:this.oid,coinNum:this.coinNum,couponId:this.couponId}).then(res=>{
           if(res.code == 0){
 
             if(res.data){
               this.payFlag = true;
+              this.$nextTick(()=>{
 
-              let qrcode = new QRCode('qrcodepay', {
-                width:'190',
-                height: '190',
-                text:res.data, // 二维码地址
-                colorDark : "#000",
-                colorLight : "#FFF",
+                let qrcode = new QRCode('qrcodepay', {
+                  width:'190',
+                  height: '190',
+                  text:res.data, // 二维码地址
+                  colorDark : "#000",
+                  colorLight : "#FFF",
+                })
+                this.getOrderStatus();
               })
-              this.getOrderStatus();
+
             }else{
               this.stoast('支付成功')
               clearInterval(this.orderIntval)
@@ -178,7 +180,6 @@
             }
           }
         })
-      })
 
     },
     callme(){},

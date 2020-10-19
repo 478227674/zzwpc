@@ -1,7 +1,7 @@
 <template>
   <div class="hello" style="overflow: hidden">
     <div class="main-banner">
-      <img style="width: 100%;" src="../assets/img/main/mainb-index.png" alt="">
+      <img style="width: 100%;height: 120px" src="../assets/img/main/mainb-index.png" alt="">
       <div></div>
     </div>
     <div class="main-bg-box">
@@ -61,16 +61,16 @@ export default {
         },
         {tabIndex:3,name:'我的课程',path:'/pages/myproductlist'},
         {tabIndex:2,name:'我的订单',path:'/pages/mainclass'},
-        {tabIndex:6,name:'合伙店铺',path:'/pages/partner'},
+        // {tabIndex:6,name:'合伙店铺',path:'/pages/partner'},
         {tabIndex:4,name:'浏览记录',path:'/pages/history'},
         {tabIndex:5,name:'我的收藏',path:'/pages/maincollect'},
         {tabIndex:7,name:'我的消息',path:'/pages/mainmessage'},
-        {tabIndex:11,name:'返佣记录',path:'/pages/rakebackhis'},
+        // {tabIndex:11,name:'返佣记录',path:'/pages/rakebackhis'},
         {tabIndex:8,name:'安全设置',path:'/pages/mainsys'},
+        // {tabIndex:10,name:'我的优惠券',path:'/pages/mainsys'},
         // {tabIndex:2,name:'● 我的评价',path:'/pages/maincomment'},
-        // {tabIndex:5,name:'● 赚取太奇币',path:'/pages/maingetzzb'},
         // {tabIndex:6,name:'● 我的佣金',path:'/pages/mainmoney'},
-        // {tabIndex:7,name:'● 我的优惠券',path:'/pages/maincoupon'},
+        {tabIndex:10,name:'我的优惠券',path:'/pages/maincoupon'},
         // {tabIndex:8,name:'● 我的客服',path:''},
 
       ],
@@ -101,6 +101,9 @@ export default {
       this.http.post('/user/queryUserInfo',{}).then(res=>{
         if(res.code == 0){
          this.userobj = res.data;
+         if(!this.userobj.imageUrl){
+           this.userobj.imageUrl = 'https://www.zz1819.com/bg/personhead.png'
+         }
         }
       })
     },
@@ -190,6 +193,10 @@ import '../assets/css/style.css'
     background: url("../assets/img/main/main-9.png") no-repeat 38px 14px !important;
     background-size: 21px 21px !important;
   }
+  .active-page10{
+    background: url("../assets/img/main/main-10.png") no-repeat 38px 16px !important;
+    background-size: 23px 16px !important;
+  }
   .active-page11{
     background: url("../assets/img/main/main-11.png") no-repeat 38px 16px !important;
     background-size: 20px 16px !important;
@@ -230,6 +237,10 @@ import '../assets/css/style.css'
   .main-9{
     background: url("../assets/img/main/main9.png") no-repeat 38px 14px;
     background-size: 21px 21px ;
+  }
+  .main-10{
+    background: url("../assets/img/main/main10.png") no-repeat 38px 16px;
+    background-size: 23px 16px ;
   }
   .main-11{
     background: url("../assets/img/main/main11.png") no-repeat 38px 16px;

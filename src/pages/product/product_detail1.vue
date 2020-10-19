@@ -20,7 +20,7 @@
           <li v-show="productDetail.isCoin==1">
             <div class="product-d-lt">课程优惠:</div>
             <div class="product-d-lr">
-              本课程可使用太奇币抵扣{{productDetail.coinLimit/1000}}元
+              本课程可使用元儒币抵扣{{productDetail.coinLimit/1000}}元
             </div>
           </li>
           <li>

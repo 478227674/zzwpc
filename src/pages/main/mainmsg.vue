@@ -145,7 +145,7 @@
           if(res.data.imageUrl){
               this.imageUrl = res.data.imageUrl;
           }else{
-              this.imageUrl = '../../assets/img/test1.png'
+              this.imageUrl = 'https://www.zz1819.com/bg/personhead.png'
           }
           if(res.data.mail){
               this.mail = res.data.mail;

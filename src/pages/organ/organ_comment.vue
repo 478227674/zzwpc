@@ -1,59 +1,23 @@
 <template>
   <div class="hello" style="background: #f5f5f5">
-    <div style="background: #fff;">
-      <div class="pc-center od-top">
-        <div class="organ-name-bpoxx">
-          <img :src="orgData.logoUrl" alt="">
-          <div class="organ-name-top">{{orgData.orgName}}
-            <div v-show="orgData.orgTelephone!=0">{{orgData.orgTelephone}}</div>
-            <div v-show="orgData.orgTelephone==0">成为本机构会员可见</div>
-          </div>
-
-        </div>
-        <div class="od-intro">{{orgData.orgIntro}}</div>
-      </div>
-    </div>
-    <div style="background: #ff7f00">
-      <div class="od-tab pc-center">
-        <ul>
-          <li @click="openOrganDetail">
-            首页
-          </li>
-          <li @click="openOrganProduct">
-            课程
-          </li>
-          <li @click="openOrganSchool">
-            校区
-          </li>
-          <li class="organ_active"  @click="openOrganComments">
-            评价
-          </li>
-          <li @click="openOrganPresent">
-            机构简介
-          </li>
-        </ul>
-      </div>
-    </div>
-    <div v-show="orgData.imageList.length>=3" class="pc-center" style="margin-top: 20px;display: flex;justify-content: space-between">
-      <img v-show="index<3" v-for="(item,index) in orgData.imageList" :src="item.attachment.fileUrl" style="width:30%;" alt="">
-    </div>
+    <orghead></orghead>
     <!--学员评价-->
     <div class="pc-center organ-allbox" >
-      <div class="organ-left">
+      <div class="org-common">
         <div class="special-class">
-          <span>学员评价（{{total}}）</span>
-          <div class="organ-grade" style="margin-top: 0px;" v-show="orgData.userGrade">
+          <span>学员评价</span>
+          <div class="organ-grade" style="margin-top: 0px;" v-show="orgObj.userGrade">
             <div class="organ-allgrade">
-              <span >{{orgData.userGrade}}</span>
-              <a v-show="orgData.userGrade>=4" href="javascript:;">极好</a>
-              <a v-show="orgData.userGrade<4 && orgData.userGrade>2" href="javascript:;">很好</a>
-              <a v-show="orgData.userGrade<=2" href="javascript:;">一般</a>
+              <span >{{orgObj.userGrade}}</span>
+              <a v-show="orgObj.userGrade>=4" href="javascript:;">极好</a>
+              <a v-show="orgObj.userGrade<4 && orgObj.userGrade>2" href="javascript:;">很好</a>
+              <a v-show="orgObj.userGrade<=2" href="javascript:;">一般</a>
             </div>
             <div class="grade-items">
-              <span>环境 {{orgData.envGrade}}</span>
-              <span>师资 {{orgData.effectGrade}}</span>
-              <span>效果 {{orgData.facultyGrade}}</span>
-              <span>服务 {{orgData.serviceGrade}}</span>
+              <span>环境 {{orgObj.envGrade}}</span>
+              <span>师资 {{orgObj.effectGrade}}</span>
+              <span>效果 {{orgObj.facultyGrade}}</span>
+              <span>服务 {{orgObj.serviceGrade}}</span>
             </div>
           </div>
         </div>
@@ -65,28 +29,27 @@
             <div class="comments-detail">
               <div class="comments-p">
                 <p>{{item.userName}}</p>
-                <span>{{item.createTime}}</span>
+                <div class="comments-grade">
+                  <div class="grade-box">
+                    <el-rate
+                      v-model="item.userGrade"
+                      disabled
+                      text-color="#ff9900"
+                      score-template="{value}">
+                    </el-rate>
+                  </div>
+<!--                  <div class="grade-item-comments">-->
+<!--                    <span>环境{{item.envGrade}}</span>-->
+<!--                    <span>师资{{item.effectGrade}}</span>-->
+<!--                    <span>效果{{item.facultyGrade}}</span>-->
+<!--                    <span>服务{{item.serviceGrade}}</span>-->
+<!--                  </div>-->
+                  <div style="clear: both"></div>
+                </div>
+                <span style="margin-top: 15px;margin-left: 20px;color:#ffa200;font-weight: bold">{{item.userGrade}}</span>
+<!--                <span style="margin-top: 15px;margin-left: 20px;">{{item.createTime}}</span>-->
               </div>
-              <div class="comments-grade">
-                <div class="grade-box">
-                  <el-rate
-                    v-model="item.userGrade"
-                    disabled
-                    text-color="#ff9900"
-                    score-template="{value}">
-                  </el-rate>
-                </div>
-                <div class="grade-item-comments">
-                  <span>环境{{item.envGrade}}</span>
-                  <span>师资{{item.effectGrade}}</span>
-                  <span>效果{{item.facultyGrade}}</span>
-                  <span>服务{{item.serviceGrade}}</span>
-                </div>
-                <div class="learn-product">
-                  学习课程：{{item.productName}}
-                </div>
-                <div style="clear: both"></div>
-              </div>
+
               <div class="comments-content">
                 {{item.userDesc}}
               </div>
@@ -95,128 +58,177 @@
               </div>
             </div>
           </li>
-
+          <li style="display: none">
+            <div class="comments-head">
+              <img src="../../assets/img/personhead.png" alt="">
+            </div>
+            <div class="comments-detail">
+              <div class="comments-p">
+                <p>打算的撒多</p>
+                <span>2220</span>
+              </div>
+              <div class="comments-grade">
+                <div class="grade-box">
+                  <el-rate
+                    disabled
+                    text-color="#ff9900"
+                    score-template="{4}">
+                  </el-rate>
+                </div>
+                <div class="grade-item-comments">
+                  <span>环境4</span>
+                  <span>师资4</span>
+                  <span>效果4</span>
+                  <span>服务4</span>
+                </div>
+                <div class="learn-product">
+                  学习课程：是萨达撒
+                </div>
+                <div style="clear: both"></div>
+              </div>
+              <div class="comments-content">
+                打算打算多
+              </div>
+              <div class="comments-imglist">
+              </div>
+            </div>
+          </li>
         </ul>
         <div class="block">
           <el-pagination
             background
-            @current-change="handleCurrentChange"
-            :current-page="pagenum"
-            :page-size="pagesize"
+            @current-change="currentChangeCommon"
+            :current-page="comPage"
+            :page-size="10"
             layout="prev, pager, next"
-            :total="total">
+            :total="comTotal">
           </el-pagination>
         </div>
       </div>
-      <div style="width:260px;">
-        <div class="pc-product-list-bot">
-          <div>选择太奇建工AI</div>
-          <span class="pc-line"></span>
-          <ul style="padding-bottom: 20px">
-            <li>
-              <img src="../../assets/img/c1.png" alt="">
-              <div>
-                <p>行业平台</p>
-                <span>有20年的互联网+教育经验， 懂学生需要什么。</span>
+      <div class="org-desc-hotclasses">
+        <div class="org-all-grade">
+          <div class="org-grade-top">
+            <div>
+              综合评分
+              <span>{{comTotal}}人评价</span>
+            </div>
+            <p>
+              {{orgObj.userGrade || '暂无评分'}}
+            </p>
+          </div>
+          <div class="org-grade-item">
+            <div>
+              <span>环境</span>
+              <p>{{orgObj.envGrade || 0}}</p>
+            </div>
+            <div>
+              <span>师资</span>
+              <p>{{orgObj.effectGrade || 0}}</p>
+            </div>
+            <div>
+              <span>效果</span>
+              <p>{{orgObj.facultyGrade || 0}}</p>
+            </div>
+            <div>
+              <span>服务</span>
+              <p>{{orgObj.serviceGrade || 0}}</p>
+            </div>
+          </div>
+        </div>
+        <div class="store-hot-class" style="background: #fff;">
+          <div class="hot-title">热门课程</div>
+          <div class="hot-class-list">
+            <div  @click="openProductDetail(item)"  v-for="item in hotClass" class="hot-class-detail">
+              <div class="hot-class-img">
+                <img :src="item.imageUrl" alt="">
               </div>
-            </li>
-            <li>
-              <img src="../../assets/img/c2.png" alt="">
-              <div>
-                <p>教育资源丰富</p>
-                <span>覆盖全国上百个城市多家品牌 机构，老师好，学校多，课程多。</span>
+              <div class="hot-class-text">
+                <div class="hot-class-top">
+                  <p>{{item.productName}}</p>
+                  <div class="hot-class-classtime">
+                    <span>班制：{{item.className}}</span>
+                    <span>授课：{{item.teachName}}</span>
+                  </div>
+                </div>
+                <div class="hot-class-price">
+                  <div>
+                    ￥{{item.productPrice}}
+                    <span>返佣￥{{item.commissionRebate}}</span>
+                  </div>
+                  <p>{{item.purchaseNum}}已报名</p>
+                </div>
               </div>
-            </li>
-            <li>
-              <img src="../../assets/img/c4.png" alt="">
-              <div>
-                <p>专业平台顾问</p>
-                <span>百余名资深教育顾问，站在 第三方的角度，快速为您定 制一对一的个性化解决方案。</span>
-              </div>
-            </li>
-            <li>
-              <img src="../../assets/img/c1.png" alt="">
-              <div>
-                <p>行业平台</p>
-                <span>有20年的互联网+教育经验， 懂学生需要什么。</span>
-              </div>
-            </li>
-          </ul>
+            </div>
+          </div>
         </div>
       </div>
-
-
     </div>
   </div>
 
 </template>
 <script>
-  import { slider, slideritem } from 'vue-concise-slider'
+  import orghead from '../../components/orghead'
+
   export default {
     name: 'HelloWorld',
     data () {
       return {
         orgId:null,
-        value5:5,
-        pagenum:1,
-        pagesize:5,
-        total:0,
+        comPage:1,
+        comTotal:0,
         commentsList:[],
         orgData:{},
+        orgObj:{},
+        hotClass:[],
       }
     },
     components:{
-      slider,
-      slideritem
+      orghead,
     },
     created(){
-      this.orgId = this.$route.query.id
-      this.getOrganComments();
-      this.getOrganDetail();
-      this.$emit('header_two',true);
+      this.orgId = this.$store.state.user.activeOrgId;
+      this.$emit('header', false)
+      this.getOrgComments();
+      this.getOrgInfo();
+      this.getHotClass();
     },
     methods:{
-      getOrganDetail(){
-        this.http.post('/pc/org/queryOrgInfo',{orgId:this.orgId}).then(res=>{
-          if(res.code == 0){
-            this.orgData = res.data;
-            this.imageList = res.data.imageList;
+      //获取机构详情
+      getOrgInfo() {
+        this.http.post('/dir/queryOrgInfo', {orgId: this.orgId}).then(res => {
+          if (res.code == 0) {
+            this.orgObj = res.data;
           }
         })
       },
-      handleCurrentChange(v){
-          this.pagenum = v;
-          this.getOrganComments();
+      //换页
+      currentChangeCommon(v){
+        this.comPage = v;
+        this.getOrganDetail();
       },
-
-      getOrganComments(){
-        this.http.post('/org/queryOrgEvaluation',{orgId:this.orgId,pagenum:this.pagenum,pagesize:5}).then(res=>{
+      //打开课程详情
+      openProductDetail(data) {
+        this.openProductDetailByType(data)
+      },
+      //获取机构热门课程
+      getHotClass(){
+        this.http.post('/dir/queryDirProductRecomByOrgId',{orgId:this.orgId,pageSize:3,pageNum:1}).then(res=>{
+          if(res.code == 0){
+            this.hotClass = res.data.list;
+          }
+        })
+      },
+      //获取评论
+      getOrgComments(){
+        this.http.post('/dir/queryOrgEvaluation',{orgId:this.orgId,pageNum:this.comPage,pageSize:10}).then(res=>{
           if(res.code == 0){
             for(var i=0;i<res.data.list.length;i++){
               res.data.list[i].createTime = this.formatTimeToDay(res.data.list[i].createTime)
             }
-            this.total = res.data.total;
             this.commentsList = res.data.list;
+            this.comTotal = res.data.total;
           }
         })
-      },
-      openIndex(){
-        this.$router.push('/')
-      },
-      openOrganDetail(){
-        this.$router.push({path:'/pages/organ_detail',query:{id:this.orgId}})
-      },
-      openOrganProduct(){
-        this.$router.push({path:'/pages/organ_product',query:{id:this.orgId}})
-      },
-      openOrganSchool(){
-        this.$router.push({path:'/pages/organ_school',query:{id:this.orgId}})
-      },
-      openOrganComments(){
-        this.$router.push({path:'/pages/organ_comment',query:{id:this.orgId}})
-      },
-      openOrganPresent(){
-        this.$router.push({path:'/pages/organ_present',query:{id:this.orgId}})
       },
     },
   }

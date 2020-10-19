@@ -20,6 +20,7 @@
     "qrcodejs2": "0.0.2",
     "videojs-contrib-hls": "^5.15.0",
     "vue": "^2.5.2",
+    "vue-baidu-map": "^0.21.22",
     "vue-concise-slider": "^3.4.4",
     "vue-router": "^3.3.4",
     "vue-video-player": "^5.0.2",

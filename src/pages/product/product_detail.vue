@@ -1,9 +1,15 @@
 <template>
   <div class="hello" style="background: #e7e8ec">
+    <orghead></orghead>
     <div class="pro-banner">
+      <div class="web-positon">
+        <img src="../../assets/img/product/productpositionicon.png" alt="">
+        <span>课程 > {{pobj.productName}}</span>
+      </div>
       <img src="../../assets/img/zzw/probanner.png" alt="">
     </div>
     <div class="pro-detail-all">
+
       <div class="pro-detail-top ">
         <!--左轮播图-->
         <div class="product-d-img">
@@ -41,13 +47,18 @@
         </div>
         <!--左上角图标-->
         <div class="pro-handler">
-          <img  @click="getQrcode" src="../../assets/img/shareicon.png" alt="">
-          <img @click="collectThisProduct" src="../../assets/img/zzw/collectpro.png" alt="">
+          <div @click="getQrcode">
+            <img  src="../../assets/img/shareicon.png" alt="">
+            <div id="qrcodepro"></div>
+          </div>
+          <div>
+            <img @click="collectThisProduct" src="../../assets/img/zzw/collectpro.png" alt="">
+          </div>
         </div>
       </div>
-      <div class="product-ps">
-         <span>!</span>提供服务： 免费问答、资料下载、学习进度追踪、课程免费一年等
-      </div>
+<!--      <div class="product-ps">-->
+<!--         <span>!</span>提供服务： 免费问答、资料下载、学习进度追踪、课程免费一年等-->
+<!--      </div>-->
       <div  class="pro-detail-bottom" >
         <div class="product-allbox" >
           <div class="product-detail-left">
@@ -144,7 +155,7 @@
                     <div class="hot-class-price">
                       <div>
                         ￥{{item.productPrice}}
-                        <span>返佣￥{{item.commissionRebate}}</span>
+<!--                        <span>返佣￥{{item.commissionRebate}}</span>-->
                       </div>
                       <p>{{item.purchaseNum}}已报名</p>
                     </div>
@@ -193,7 +204,7 @@
 </template>
 <script>
   import tryvideos from "../../components/videos/tryvideos";
-
+  import orghead from '../../components/orghead'
   import QRCode from "qrcodejs2"; //引入生成二维码插件
   import config from "../../config"; //引入生成二维码插件
   import { slider, slideritem } from 'vue-concise-slider'
@@ -259,12 +270,14 @@
     components:{
       slider,
       slideritem,
-      tryvideos
+      tryvideos,
+      orghead
+
     },
     created(){
       this.productId = this.$route.query.id;
       this.getProductDetai();
-      this.$emit('header_two',true);
+      this.$emit('header',false);
     },
     methods:{
       //试听课程
@@ -304,19 +317,17 @@
       },
 
       getQrcode(){
-        this.$router.push('/pages/specail')
-        return;
         if(!localStorage.getItem('diruserinfo')){
           this.$router.push('/pages/login');
           return;
         }
         var shareUrl = '';
         var user = JSON.parse(localStorage.getItem('diruserinfo'))
-        shareUrl = config.wxUrl +  'product_detail.html?orgId=' + this.orgId;
-        if(document.getElementById('qrcode').innerHTML){
-          document.getElementById('qrcode').innerHTML = "";
+        shareUrl = config.wxUrl +  'product_detail.html?id=' + this.productId + '&uid=' + user.userId;
+        if(document.getElementById('qrcodepro').innerHTML){
+          document.getElementById('qrcodepro').innerHTML = "";
         }else{
-          let qrcode = new QRCode('qrcode', {
+          let qrcode = new QRCode('qrcodepro', {
             width:'100',
             height: '100',
             text:shareUrl, // 二维码地址
@@ -411,17 +422,6 @@
   import '../../assets/css/order.css';
 </script>
 <style scoped>
-  .pro-handler img{
-    display: block;
-    cursor: pointer;
-    width: 25px;
-    margin-bottom: 20px;
-  }
-  .pro-handler{
-    position: absolute;
-    right: 20px;
-    top:20px;
-  }
 
   .pro-start-time{
     color:#e8252d;

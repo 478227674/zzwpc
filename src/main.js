@@ -13,6 +13,7 @@ import common from './api/common'
 import SIdentify from './components/identify' //注意引入路径
 // import echarts from 'echarts'
 import VideoPlayer from 'vue-video-player'
+import BaiduMap from 'vue-baidu-map'
 const hls = require('videojs-contrib-hls')
 require('video.js/dist/video-js.css')
 require('vue-video-player/src/custom-theme.css')
@@ -21,6 +22,9 @@ require('vue-video-player/src/custom-theme.css')
 Vue.use(VideoPlayer)
 Vue.use(SIdentify)
 Vue.use(hls)
+Vue.use(BaiduMap, {
+  ak: 'uqc3ALuChCNSuRjYWrptLGYO34sQlhSw'
+})
 
 // import 'swiper/dist/css/swiper.min.css';
 /* 样式的话，我这里有用到分页器，就在全局中引入了样式 */

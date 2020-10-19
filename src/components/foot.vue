@@ -1,6 +1,6 @@
 <template>
-  <div class="hello" style="background: #313131;overflow: hidden">
-    <div class="pc-footer">
+  <div class="hello" style="background: #fff;overflow: hidden">
+    <div style="display:none" class="pc-footer">
       <div class="pc-center footer-center" style="margin-top:30px;">
         <div class="foot-logobox">
           <img src="../assets/img/dis/biglogo.png" alt="">
@@ -9,19 +9,19 @@
             </div>
             <div> 咨询电话：010-52893105 52893103
             </div>
-            <div> 北京市海淀区太奇培训学校——MBA辅导培训中心提供优质MBA考前辅导培训
+            <div> 北京市海淀区元儒教育城培训学校——MBA辅导培训中心提供优质MBA考前辅导培训
             </div>
-            <div> 北京市海淀区太奇培训学校——全国专业的管理类联考辅导机构
+            <div> 北京市海淀区元儒教育城培训学校——全国专业的管理类联考辅导机构
             </div>
           </div>
         </div>
         <div class="foot-right">
           <div class="foot-right-item">
-            <div>关于太奇</div>
-            <p>太奇简介</p>
-            <p>太奇之歌</p>
+            <div>关于元儒教育城</div>
+            <p>元儒教育城简介</p>
+            <p>元儒教育城之歌</p>
             <p>学员风采</p>
-            <p>太奇历程</p>
+            <p>元儒教育城历程</p>
             <p>联系我们</p>
           </div>
           <div class="foot-right-item">
@@ -43,7 +43,7 @@
         </div>
         <div style="display:none" class="contactus">
           <div>联系我们</div>
-          <div>太奇建工AI（北京太奇教育科技有限公司）</div>
+          <div>元儒教育城</div>
           <span class="index-foot-1">电话：400-8018-618</span>
           <span class="index-foot-2">地址：北京市海淀区魏公村理工科技大厦17楼</span>
         </div>
@@ -60,15 +60,49 @@
         </div>
       </div>
     </div>
+    <div class="new-foot">
+       <div class="pc-center">
+         <div class="new-foot-menu">
+           <div>元儒网</div>
+           <span @click="openAboutUs(1)">平台介绍</span>
+           <span>联系方式</span>
+           <span @click="openAboutUs(2)">法律申明</span>
+         </div>
+         <div class="new-foot-menu">
+           <div>机构服务</div>
+           <span @click="openAboutUs(3)">平台公告</span>
+           <span><a href="https://www.zz1819.com/sys/#/signup" target="_blank">申请入驻</a></span>
+           <span><a href="https://www.zz1819.com/sys/#/userlogin" target="_blank">机构登录</a></span>
+         </div>
+         <div class="new-foot-phone">
+           <span>全国统一客服电话(免长途费)</span>
+           <div>400-010-9988</div>
+           <p>工作日 9:00-17:00 接听</p>
+         </div>
+         <div class="new-foot-app">
+           <div>
+             <span>小程序</span>
+             <img src="../assets/img/zzw/appcode.png" alt="">
+           </div>
+           <div>
+             <span>app</span>
+             <img src="../assets/img/zzw/appcode.png" alt="">
+           </div>
+         </div>
+       </div>
+    </div>
     <div class="pc-footer1">
       <ul class="fff12">
         <li>
-          海淀总部：北京市海淀区中关村南大街9号北京理工科技大厦1701
-          咨询电话：010-62138466/62750695
-          全国统一报名专线：4000-888-686
+          <div class="foot-img-for">
+            <img style="margin-right: 20px;" src="../assets/img/zzw/foot1.png" alt="">
+            <img style="margin-right: 20px;" src="../assets/img/zzw/foot2.png" alt="">
+            <img style="margin-right: 20px;" src="../assets/img/zzw/foot3.png" alt="">
+            <img src="../assets/img/zzw/foot4.png" alt="">
+          </div>
         </li>
         <li>
-          Copyright© 太奇教育    20201998-2014  All Rights Reserved         京ICP备10033867号-13
+          Copyright© 元儒教育城    20201998-2014  All Rights Reserved         京ICP备10033867号-13
         </li>
       </ul>
     </div>
@@ -86,13 +120,7 @@
       // this.getOrgList();
     },
     methods: {
-      openOrganDetail(id) {
-        let routeUrl = this.$router.resolve({
-          path: "/pages/organ_detail",
-          query: {id: id}
-        });
-        window.open(routeUrl.href, '_blank');
-      },
+
       // getOrgList(){
       //   this.http.post('/pc/common/queryOrgList',{}).then(res=>{
       //     if(res.code == 0){
@@ -101,8 +129,8 @@
       //   })
       //
       // },
-      openAboutUs() {
-        this.$router.push('/pages/aboutus')
+      openAboutUs(t) {
+        this.openNewPage('/pages/aboutus',{type:t})
       },
       openJoinUs() {
         this.$router.push('/pages/joinform')
@@ -126,6 +154,83 @@
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+  .foot-img-for {
+    display: flex;
+    justify-content: center;
+  }
+  .foot-img-for img{
+    width: 110px;
+  }
+  .pc-footer1{
+    background:#fff;
+  }
+  .new-foot-app div img{
+    width: 110px;
+    height: 110px;
+  }
+  .new-foot-app div span{
+    margin-bottom: 10px;
+    color:#4b4b4b;
+    font-size: 18px;
+    text-align: center;
+    display: block;
+  }
+  .new-foot-app div{
+    margin-right: 50px;
+  }
+  .new-foot-app{
+    display: flex;
+    justify-content: flex-start;
+  }
+  .new-foot-phone p {
+    color:#323232;
+    font-size: 14px;
+    text-align: center;
+  }
+  .new-foot-phone div{
+    font-size: 18px;
+    color:#323232;
+    font-weight: bold;
+    text-align: center;
+  }
+  .new-foot-phone span{
+    color:#323232;
+    font-size: 14px;
+    display: block;
+    text-align: center;
+  }
+  .new-foot-phone{
+    width: 200px;
+    height: 155px;
+    background: url("../assets/img/zzw/footphone.png") no-repeat left bottom;
+    background-size: 150px 112px;
+  }
+  .new-foot-menu span a {
+    color:#4b4b4b;
+  }
+  .new-foot-menu span{
+    cursor: pointer;
+    color:#4b4b4b;
+    font-size: 14px;
+    display: block;
+    margin-top:20px;
+  }
+  .new-foot-menu div{
+    color:#4b4b4b;
+    font-size: 18px;
+    font-weight: bold;
+  }
+  .new-foot{
+    border-top: 3px solid #eb6100;
+    background: #f5f6f9;padding: 22px 0px 38px 0px;
+  }
+  .new-foot .pc-center{
+    display: flex;
+    justify-content: space-around;
+  }
+
+
+
   .foot-right-item p:hover{
     color:#EC6946
   }
