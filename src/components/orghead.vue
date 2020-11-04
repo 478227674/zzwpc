@@ -226,7 +226,7 @@
     createOrgQrcode() {
       var shareUrl = '';
       var user = this.$store.state.user.user || {};
-      shareUrl = config.wxUrl + 'organ_detail.html?id=' + this.orgId + '&inviteCode=' + user.inviteCode + '&'
+      shareUrl = config.wxUrl + 'index.html?id=' + this.orgId + '&inviteCode=' + user.inviteCode + '&'
       if (document.getElementById('qrcode').innerHTML) {
         document.getElementById('qrcode').innerHTML = "";
       } else {

@@ -26,9 +26,9 @@
                   <a href="javascript:;" style="color:#e90811;">开课时间: {{oobj.startTime}}</a>
                 </div>
               </div>
-              <div class="order-price-new">
-                现价： <span>￥{{oobj.orderPrice}}</span>
-              </div>
+<!--              <div class="order-price-new">-->
+<!--                现价： <span>￥{{oobj.orderPrice}}</span>-->
+<!--              </div>-->
               <!--<span class="classs-handle-btn-n">申请退款</span>-->
               <!--<span class="classs-handle-btn-y" @click="openComment">立即评价</span>-->
               <!--<span class="classs-handle-btn-y">确认上课</span>-->
@@ -36,15 +36,15 @@
             </div>
           </li>
         </ul>
-        <div class="pay-type">
-          <h4>支付方式</h4>
-          <div class="pay-type-list">
-            <div class="pay-type-item">
-              <img src="../../assets/img/wxlogo.png" alt="">
-              <span>微信支付</span>
-            </div>
-          </div>
-        </div>
+<!--        <div class="pay-type">-->
+<!--          <h4>支付方式</h4>-->
+<!--          <div class="pay-type-list">-->
+<!--            <div class="pay-type-item">-->
+<!--              <img src="../../assets/img/wxlogo.png" alt="">-->
+<!--              <span>微信支付</span>-->
+<!--            </div>-->
+<!--          </div>-->
+<!--        </div>-->
         <div style="color:#eb6100;font-size: 12px;margin-top: 25px;">
           已为你锁定课程席位，请在 15:00 内完成支付即可
         </div>
@@ -158,18 +158,24 @@
           if(res.code == 0){
 
             if(res.data){
-              this.payFlag = true;
-              this.$nextTick(()=>{
-
-                let qrcode = new QRCode('qrcodepay', {
-                  width:'190',
-                  height: '190',
-                  text:res.data, // 二维码地址
-                  colorDark : "#000",
-                  colorLight : "#FFF",
-                })
-                this.getOrderStatus();
-              })
+              window.location.href = res.data;
+              if(navigator.userAgent.indexOf("Safari")>0 && navigator.userAgent.indexOf("Chrome")<0){
+                window.location.replace(res.data);
+              }else{
+                window.open(res.data);
+              }
+              // this.payFlag = true;
+              // this.$nextTick(()=>{
+              //
+              //   let qrcode = new QRCode('qrcodepay', {
+              //     width:'190',
+              //     height: '190',
+              //     text:res.data, // 二维码地址
+              //     colorDark : "#000",
+              //     colorLight : "#FFF",
+              //   })
+              //   this.getOrderStatus();
+              // })
 
             }else{
               this.stoast('支付成功')
@@ -207,6 +213,7 @@
   import '../../assets/css/common.css';
   import '../../assets/css/style.css'
   import '../../assets/css/pay.css'
+  import configUrl from "../../config";
 </script>
 <style scoped>
   .pc-product-list-bot ul li{

@@ -41,7 +41,7 @@
             <li>
               <div class="product-d-lt">开课时间:</div>
               <div class="product-d-lr guige-box">
-                <span class="guige-active">{{pobj.startTime}}至{{pobj.endTime}}</span>
+                <span class="guige-active">{{pobj.createTime}}至{{pobj.endTime}}</span>
               </div>
             </li>
             <li>
@@ -376,7 +376,7 @@
             this.pobj.m = endObj.m;
             this.pobj.s = endObj.s;
             this.productDetail.endObj = endObj;
-            this.pobj.startTime = this.formatTimeToDate(this.pobj.startTime)
+            this.pobj.createTime = this.pobj.createTime == '936839349000' ? '实时开课' : this.formatTimeToDate(this.pobj.createTime)
             this.pobj.endTime = this.formatTimeToDate(this.pobj.endTime);
             var arr = Object.assign([], res.data.groups);
 

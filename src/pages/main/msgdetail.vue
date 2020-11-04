@@ -53,7 +53,7 @@
   },
   methods:{
       getMsgDetail(){
-        this.http.post('/message/queryMessageInfo',{pushId:this.pushId}).then(res=>{
+        this.http.post('/dir/queryMessageInfo',{pushId:this.pushId}).then(res=>{
           if(res.code == 0){
             res.data.pushTime = this.formatTimeToDay(res.data.pushTime)
             this.mobj = res.data
@@ -65,9 +65,9 @@
     },
   },
 }
-import '../../assets/css/common.css';
-  import '../../assets/css/style.css'
-  import '../../assets/css/product.css'
+  import '../../assets/css/common.css';
+  import '../../assets/css/style.css';
+  import '../../assets/css/product.css';
 </script>
 <style scoped>
   .msg-detail-title>div{
