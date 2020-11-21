@@ -34,8 +34,8 @@
               机构简介:
             </span>
             <div>
-              <div>
-                {{orgObj.orgIntro}}
+              <div class="org-intro">
+                {{orgObj.orgIntro}}...
               </div>
 <!--              <a href="javasrcipt:;">查看详情</a>-->
             </div>
@@ -46,7 +46,8 @@
             </span>
             <div>
               <div>
-                <span style="color:#888" v-for="item in schoolList">{{item.schoolname}} </span>
+                <span style="color:#888" v-if="schoolList.length > 0" v-for="item in schoolList">{{item.schoolname}} </span>
+                <span v-if="schoolList.length == 0" >暂无校区</span>
               </div>
 <!--              <a href="javasrcipt:;">查看详情</a>-->
 
@@ -58,7 +59,7 @@
             </span>
             <div>
               <div>
-                {{orgObj.orgTelephone}}
+                400-010-9988转{{orgObj.orgTelephone}}
               </div>
             </div>
           </div>
@@ -372,7 +373,7 @@
       //打开包名通道
       openSignupc(t){
         if(t == 1){
-          alert(this.orgObj.orgTelephone)
+          alert('400-010-9988转' + this.orgObj.orgTelephone)
           return;
         }
 
@@ -542,5 +543,9 @@
   }
   .org-news-detail{
     width: 875px;
+  }
+  .org-intro{
+    /*display: block !important;*/
+    /*height:60px;*/
   }
 </style>

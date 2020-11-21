@@ -5,11 +5,17 @@
         <div class="pc-top">
           <ul>
             <li style="padding: 0px;position: relative">
-              <a href="javascript:;">元儒网 > {{cityName?cityName+' > ' : ''}}  {{orgObj.orgName}}</a>
+              <a href="javascript:;" @click="openIndex">首页 > {{cityName?cityName+' > ' : ''}}  {{orgObj.orgName}}</a>
             </li>
           </ul>
         </div>
         <div class="pc-top-r">
+          <div v-if="!isLogin" class="head-menu" @click="openLogin">
+            <p style="padding-right: 0px;">登录</p>
+          </div>
+          <div v-if="isLogin" class="head-menu" @click="openMain">
+            <p style="padding-right: 0px;">个人中心</p>
+          </div>
           <div class="head-menu pinpai">
             <p>机构中心</p> <span class="menu-down"> > </span>
             <div class="head-1">
@@ -111,7 +117,7 @@
         <div class="conact-store">
           <div>联系店家</div>
           <p>电话:{{orgObj.orgPhone}}</p>
-          <p>座机:{{orgObj.orgTelephone}}</p>
+          <p>座机:400-010-9988转{{orgObj.orgTelephone}}</p>
         </div>
       </div>
     </div>
@@ -154,6 +160,7 @@
       ],
       activeIndex:null,
       sortList:[],
+      isLogin:false
     }
   },
   created(){
@@ -168,13 +175,32 @@
       }
     }
     this.getSortList();
-
     this.orgId = localStorage.getItem('ACTIVE_ORG_ID');
+
+    // localStorage.setItem('ACTIVE_ORG_ID',this.$route.query.orgId);
+
+
     this.getOrgInfo();
+    if (this.$store.state.user.user.userPhone) {
+      this.isLogin = true;
+
+    } else {
+      this.isLogin = false;
+    }
   },
   components:{
   },
   methods:{
+    openIndex(){
+      this.openNewPage('/', {})
+    },
+    //打开我的
+    openMain() {
+      this.openNewPage('/pages/mainmsg', {})
+    },
+    openLogin() {
+      this.$router.push('/pages/login')
+    },
     //收藏或取消收藏
     collectionOrg(type) {
       if (type) {
@@ -226,7 +252,7 @@
     createOrgQrcode() {
       var shareUrl = '';
       var user = this.$store.state.user.user || {};
-      shareUrl = config.wxUrl + 'index.html?id=' + this.orgId + '&inviteCode=' + user.inviteCode + '&'
+      shareUrl = config.wxUrl + 'index.html?orgId=' + this.orgId + '&inviteCode=' + user.inviteCode + '&'
       if (document.getElementById('qrcode').innerHTML) {
         document.getElementById('qrcode').innerHTML = "";
       } else {

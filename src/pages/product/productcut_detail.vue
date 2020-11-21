@@ -315,7 +315,6 @@
         productDetail: {},
         guigeObj: {},
         orderId: null,
-
         videos: [],
         subjectId: null, //查看的当前学科ID
         subjectList: [],//学科列表
@@ -325,7 +324,6 @@
         videoUrl: '',
         videoFlag: false,
         shareUrl: '',
-
       }
     },
     components: {

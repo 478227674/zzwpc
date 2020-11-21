@@ -261,7 +261,7 @@
       //搜索课程
       searchProductResultByWord() {
         this.http.post('/dir/queryProdyctListSortIdOrName', {
-          key: this.searchWord,
+          name: this.searchWord,
           pageNum: this.pagenum,
           pageSize: 12,
           secondSortId: this.twoSortId,

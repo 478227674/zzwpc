@@ -723,9 +723,16 @@
 }
 
 .organ-index-items div div {
-  display: flex;
-  justify-content: flex-start;
+  /*display: flex;*/
+  /*justify-content: flex-start;*/
   flex-wrap: wrap;
+  text-overflow: -o-ellipsis-lastline;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  line-clamp: 3;
+  -webkit-box-orient: vertical;
 }
 .organ-index-items div p {
   color:#f84e0c;

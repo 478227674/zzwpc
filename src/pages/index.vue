@@ -698,11 +698,13 @@
     /*margin-top: 15px;*/
   }
   .organ-list li img{
-    height: 80px;
+    width: 100%;
     margin:12px auto;
     display: block;
   }
   .organ-list li {
+    display: flex;
+    justify-items: center;
     cursor: pointer;
     background: #fff;
     margin-right: 16px;

@@ -346,9 +346,11 @@
             this.imageList = res.data.imageList;
             this.productDetail = res.data.productDetail;
             this.pobj = res.data;
-            this.guigeObj = res.data.rule;
-            this.guigeObj.createTime = this.guigeObj.createTime == '936839349000' ? '实时开课' : this.formatTimeToDate(this.guigeObj.createTime)
-            this.guigeObj.endTime = this.formatTimeToDate(this.guigeObj.endTime)
+            if(res.data.rule){
+              this.guigeObj = res.data.rule;
+              this.guigeObj.createTime = this.guigeObj.createTime == '936839349000' ? '实时开课' : this.formatTimeToDate(this.guigeObj.createTime)
+              this.guigeObj.endTime = this.formatTimeToDate(this.guigeObj.endTime)
+            }
             this.orgId = res.data.orgId;
             this.getHotClass();
             this.http.post('/dir/querySubjectListByProduct',{productId:this.productId,productType:2}).then(res=>{

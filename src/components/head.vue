@@ -43,9 +43,22 @@
                 </div>
               </div>
             </li>
+            <li style="position: relative;" @click="codeFlag = !codeFlag">
+              手机浏览
+              <div @click.stop="" v-show="codeFlag" style="left:50%;margin-left:-50px;width: 100px;height: 100px;background: #fff;z-index: 100;padding: 10px;position:absolute;">
+                <img style="width: 100%;height: 100%;" src="https://www.zz1819.com/bg/h5url.png" alt="">
+              </div>
+            </li>
           </ul>
         </div>
         <div class="pc-top-r">
+          <div v-if="!isLogin" class="head-menu" @click="openLogin">
+            <p style="padding-right: 0px;">登录</p>
+          </div>
+          <div v-if="isLogin" class="head-menu" @click="openMain">
+            <p style="padding-right: 0px;">个人中心</p>
+          </div>
+
           <div class="head-menu pinpai">
             <p>机构中心</p> <span class="menu-down"> > </span>
             <div class="head-1">
@@ -182,6 +195,7 @@
         cityId: '',
         cityList: [],
         twoList: [],
+        codeFlag:false,
       }
     },
     created() {
@@ -401,9 +415,6 @@
           query: data.query
         });
         window.open(routeUrl.href, '_blank');
-      },
-      openLogin() {
-        this.$router.push('/pages/login')
       },
 
     },

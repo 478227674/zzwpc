@@ -9,7 +9,7 @@ var requestFlag = true;
 //创建axios实例
 service = axios.create({
   baseURL: configUrl.baseUrl,
-  timeout: 5000,
+  timeout: 30000,
   withCredentials:false,
 
 })

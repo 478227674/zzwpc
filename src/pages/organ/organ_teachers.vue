@@ -136,6 +136,7 @@
   }
   .teachers-list li img{
     width: 205px;
+    margin-bottom: 10px;
     height: 205px;
   }
     .teachers-list li {
